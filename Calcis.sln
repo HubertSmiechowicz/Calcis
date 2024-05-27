@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcis.Bootstraper", "src\B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{156E8E81-10BA-421A-8D4C-2700EC2E0D06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Shared", "src\Shared\Calcis.Shared\Calcis.Shared.csproj", "{8290D9B6-3157-4F79-A37F-ECA9C2F90804}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Shared.Infrastructure", "src\Shared\Calcis.Shared\Calcis.Shared.Infrastructure.csproj", "{8290D9B6-3157-4F79-A37F-ECA9C2F90804}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Modules.Base.Api", "src\Modules\Base\Calcis.Modules.Base.Api\Calcis.Modules.Base.Api.csproj", "{F46ADC8C-9ADC-4782-9C8A-ED56732FE0AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Shared.Abstractions", "src\Shared\Calcis.Shared.Abstractions\Calcis.Shared.Abstractions.csproj", "{E8CF9C15-50A7-45B7-BAAE-10D91AFB5BDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{F46ADC8C-9ADC-4782-9C8A-ED56732FE0AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F46ADC8C-9ADC-4782-9C8A-ED56732FE0AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F46ADC8C-9ADC-4782-9C8A-ED56732FE0AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8CF9C15-50A7-45B7-BAAE-10D91AFB5BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8CF9C15-50A7-45B7-BAAE-10D91AFB5BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8CF9C15-50A7-45B7-BAAE-10D91AFB5BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8CF9C15-50A7-45B7-BAAE-10D91AFB5BDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{156E8E81-10BA-421A-8D4C-2700EC2E0D06} = {C7476297-878A-4FFB-BBF0-79CDBE8F7331}
 		{8290D9B6-3157-4F79-A37F-ECA9C2F90804} = {11AF223C-1C79-4242-B5DC-F44DE44531FD}
 		{F46ADC8C-9ADC-4782-9C8A-ED56732FE0AF} = {156E8E81-10BA-421A-8D4C-2700EC2E0D06}
+		{E8CF9C15-50A7-45B7-BAAE-10D91AFB5BDF} = {11AF223C-1C79-4242-B5DC-F44DE44531FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7247945B-281D-4FCE-8A2E-7BED08698F51}
