@@ -1,10 +1,11 @@
 using Calcis.Modules.Base.Api;
+using Calcis.Shared.Infrastructure.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add modules to the contrainter
-builder.Services.AddBaseModule();
+ModuleLoader.RegisterModules(builder.Services);
 
 // Add services to the container.
 builder.Services.AddControllers();

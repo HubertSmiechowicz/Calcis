@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Calcis.Shared.Abstractions.Modules
 {
-    public interface IModule
+    public interface ILayer
     {
         void Register(IServiceCollection service);
     }

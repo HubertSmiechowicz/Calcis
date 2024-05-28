@@ -7,13 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.1.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Abstractions\Calcis.Shared.Abstractions.csproj" />
-    <ProjectReference Include="..\..\..\Shared\Calcis.Shared\Calcis.Shared.Infrastructure.csproj" />
-    <ProjectReference Include="..\Calcis.Modules.Base.Core\Calcis.Modules.Base.Core.csproj" />
   </ItemGroup>
 
 </Project>

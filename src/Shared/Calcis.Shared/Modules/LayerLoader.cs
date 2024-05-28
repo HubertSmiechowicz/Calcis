@@ -1,19 +1,17 @@
 ﻿using Calcis.Shared.Abstractions.Modules;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Calcis.Shared.Infrastructure.Modules
 {
-    public static class ModuleLoader
+    public class LayerLoader
     {
-        private static IList<Assembly> LoadAssemblies()
+        private static IList<Assembly> LoadAssemblies(string layerPart)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
             var locations = assemblies.Where(x => !x.IsDynamic).Select(x => x.Location).ToArray();
@@ -23,13 +21,13 @@ namespace Calcis.Shared.Infrastructure.Modules
 
             foreach (var file in files)
             {
-                if (!file.Contains("Calcis.Modules."))
+                if (!file.Contains($"Calcis.Modules.{layerPart}"))
                 {
                     continue;
                 }
 
-                var moduleName = file.Split("Calcis.Modules.")[1].Split(".")[0].ToLowerInvariant();
-                
+                var moduleName = file.Split($"Calcis.Modules.{layerPart}")[1].Split(".")[0].ToLowerInvariant();
+
             }
 
             files.ForEach(x => assemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(x))));
@@ -37,23 +35,23 @@ namespace Calcis.Shared.Infrastructure.Modules
             return assemblies;
         }
 
-        private static IList<IModule> LoadModules()
-        => LoadAssemblies()
+        private static IList<ILayer> LoadLayers(string layerPart)
+        => LoadAssemblies(layerPart)
             .SelectMany(x => x.GetTypes())
-            .Where(x => typeof(IModule).IsAssignableFrom(x) && !x.IsInterface)
+            .Where(x => typeof(ILayer).IsAssignableFrom(x) && !x.IsInterface)
             .OrderBy(x => x.Name)
             .Select(Activator.CreateInstance)
-            .Cast<IModule>()
+            .Cast<ILayer>()
             .ToList();
 
 
-        public static void RegisterModules(IServiceCollection service)
+        public static void RegisterLayers(IServiceCollection service, string layerPart)
         {
-            var modules = LoadModules();
+            var layers = LoadLayers(layerPart);
 
-            foreach (var module in modules)
+            foreach (var layer in layers)
             {
-                module.Register(service);
+                layer.Register(service);
             }
         }
     }
