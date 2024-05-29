@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Calcis.Modules.Base.Core;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Calcis.Modules.Base.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BaseController : ControllerBase
+    internal class BaseController : ControllerBase
     {
         private IBaseService BaseService { get; }
         public BaseController(IBaseService baseService) 
@@ -19,6 +20,7 @@ namespace Calcis.Modules.Base.Api.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation("Hello")]
         public ActionResult<string> Hello()
         {
             return "Hello";

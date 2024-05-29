@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calcis.Modules.Base.Core
 {
-    public class BaseService : IBaseService
+    internal class BaseService : IBaseService
     {
         public Message CreateMessage(string message)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Calcis.Modules.Base.Core
 {
-    public class Message
+    internal class Message
     {
         public string Name { get; set; }
         public string Value { get; set; }

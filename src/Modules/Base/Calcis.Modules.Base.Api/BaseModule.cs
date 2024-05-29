@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Calcis.Modules.Base.Api
 {
-    public class BaseModule : IModule
+    internal class BaseModule : IModule
     {
         public BaseModule() { }
 
