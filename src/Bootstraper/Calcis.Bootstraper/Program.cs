@@ -1,7 +1,8 @@
-using Calcis.Modules.Base.Api;
+using Calcis.Modules.Base.Application.Queries.Handlers;
 using Calcis.Shared.Infrastructure.Api;
 using Calcis.Shared.Infrastructure.Modules;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,10 @@ builder.Services.AddControllers()
     });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
+        Assembly.GetExecutingAssembly(),
+        Assembly.GetAssembly(typeof(HelloHandler))
+    ));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

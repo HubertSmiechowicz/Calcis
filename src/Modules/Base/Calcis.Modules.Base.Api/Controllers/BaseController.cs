@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Calcis.Modules.Base.Core;
+using Calcis.Modules.Base.Application.Commands;
+using Calcis.Modules.Base.Application.DTO;
+using Calcis.Modules.Base.Application.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -13,23 +16,27 @@ namespace Calcis.Modules.Base.Api.Controllers
     [Route("[controller]")]
     internal class BaseController : ControllerBase
     {
-        private IBaseService BaseService { get; }
-        public BaseController(IBaseService baseService) 
+        private IMediator Mediator { get; }
+
+        public BaseController(IMediator mediator) 
         {
-            BaseService = baseService;
+            Mediator = mediator;
         }
 
-        [HttpGet]
-        [SwaggerOperation("Hello")]
-        public ActionResult<string> Hello()
+        [HttpGet("hello")]
+        public ActionResult<string> Hello([FromQuery] Hello query)
         {
-            return "Hello";
+            var response = Mediator.Send(query);
+
+            return response.Result;
         }
 
-        [HttpPost]
-        public ActionResult<Message> SendMessage([FromQuery] string message)
+        [HttpPost("message")]
+        public ActionResult<MessageDto> SendMessage([FromBody] AddMessage command)
         {
-            return Ok(BaseService.CreateMessage(message));
+            var response = Mediator.Send(command);
+
+            return response.Result;
         }
     }
 }

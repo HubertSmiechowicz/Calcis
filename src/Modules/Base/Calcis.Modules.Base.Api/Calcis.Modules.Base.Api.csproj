@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -15,7 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Abstractions\Calcis.Shared.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared\Calcis.Shared.Infrastructure.csproj" />
-    <ProjectReference Include="..\Calcis.Modules.Base.Core\Calcis.Modules.Base.Core.csproj" />
+    <ProjectReference Include="..\Calcis.Modules.Base.Application\Calcis.Modules.Base.Application.csproj" />
   </ItemGroup>
 
 </Project>
