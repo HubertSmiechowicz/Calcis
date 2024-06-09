@@ -1,5 +1,6 @@
 ﻿using Calcis.Modules.Base.Application.DTO;
-using Calcis.Modules.Base.Core;
+using Calcis.Modules.Base.Core.Entities;
+using Calcis.Modules.Base.Core.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,18 @@ namespace Calcis.Modules.Base.Application.Commands.Handlers
 {
     internal class AddMessageHandler : IRequestHandler<AddMessage, MessageDto>
     {
+        private IBaseRepository BaseRepository { get; }
+
+        public AddMessageHandler(IBaseRepository baseRepository) 
+        {
+            BaseRepository = baseRepository;
+        }
+
         public Task<MessageDto> Handle(AddMessage request, CancellationToken cancellationToken)
         {
             var message = Message.CreateMessage(request.Name, request.Value);
+
+            BaseRepository.AddMessage(message);
 
             var messageDto = new MessageDto()
             {

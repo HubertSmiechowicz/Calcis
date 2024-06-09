@@ -24,7 +24,7 @@ namespace Calcis.Modules.Base.Api.Controllers
         }
 
         [HttpGet("hello")]
-        public ActionResult<string> Hello([FromQuery] Hello query)
+        public ActionResult<List<MessageDto>> Hello([FromQuery] Hello query)
         {
             var response = Mediator.Send(query);
 

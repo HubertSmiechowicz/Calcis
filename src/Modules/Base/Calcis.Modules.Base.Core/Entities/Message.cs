@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calcis.Modules.Base.Core
+namespace Calcis.Modules.Base.Core.Entities
 {
     internal class Message
     {

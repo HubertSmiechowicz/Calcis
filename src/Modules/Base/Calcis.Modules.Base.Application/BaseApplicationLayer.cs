@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 [assembly: InternalsVisibleTo("Calcis.Bootstraper")]
 namespace Calcis.Modules.Base.Application
 {
-    internal class BaseAppLayer : ILayer
+    internal class BaseApplicationLayer : ILayer
     {
         public void Register(IServiceCollection service)
         {

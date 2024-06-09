@@ -3,17 +3,18 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Abstractions\Calcis.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Calcis.Shared\Calcis.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Calcis.Modules.Base.Core\Calcis.Modules.Base.Core.csproj" />
-    <ProjectReference Include="..\Calcis.Modules.Base.Infrastructure\Calcis.Modules.Base.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
