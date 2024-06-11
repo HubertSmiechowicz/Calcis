@@ -11,15 +11,12 @@ using System.Xml;
 
 namespace Calcis.Modules.Base.Infrastructure
 {
-    internal class BaseDbContext
+    internal class BaseDbContext : DbContext
     {
-        private readonly IMongoDatabase Database;
-
-        public BaseDbContext(IMongoClient mongoClient, IOptions<MongoDbSettings> settings)
+        public BaseDbContext(IMongoClient mongoClient, IOptions<MongoDbSettings> settings) : base(mongoClient, settings)
         {
-            Database = mongoClient.GetDatabase(settings.Value.DatabaseName);
         }
-        public IMongoCollection<MessageDao> Messages => Database.GetCollection<MessageDao>("Messages");
 
+        public IMongoCollection<MessageDao> Messages => Database.GetCollection<MessageDao>("Messages");
     }
 }

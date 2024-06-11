@@ -44,5 +44,12 @@ namespace Calcis.Modules.Base.Infrastructure.Repositories
 
             return result;
         }
+
+        public Message GetMessage(string id)
+        {
+            var message = Context.Messages.Find(p => p.Id == id).SingleOrDefault();
+
+            return Message.CreateMessage(message.Name, message.Value);
+        }
     }
 }

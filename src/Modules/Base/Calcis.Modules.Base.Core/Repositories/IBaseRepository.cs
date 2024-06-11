@@ -10,6 +10,9 @@ namespace Calcis.Modules.Base.Core.Repositories
     internal interface IBaseRepository
     {
         List<Message> GetMessages();
+
+        Message GetMessage(string id);
+
         void AddMessage(Message message);
     }
 }
