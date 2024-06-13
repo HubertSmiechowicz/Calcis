@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Abstractions\Calcis.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Infrastructure\Calcis.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared\Calcis.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Calcis.Modules.Base.Core\Calcis.Modules.Base.Core.csproj" />
   </ItemGroup>
