@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Calcis.Modules.Base.Application.Queries
 {
-    internal class GetMessage : IRequest<MessageDto>
+    public class GetMessage : IRequest<MessageDto>
     {
         public string Id { get; set; }
     }

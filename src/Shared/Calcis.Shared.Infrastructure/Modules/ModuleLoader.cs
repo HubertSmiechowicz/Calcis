@@ -29,10 +29,26 @@ namespace Calcis.Shared.Infrastructure.Modules
                 }
 
                 var moduleName = file.Split("Calcis.Modules.")[1].Split(".")[0].ToLowerInvariant();
-                
-            }
 
-            files.ForEach(x => assemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(x))));
+                try
+                {
+                    var assemblyName = AssemblyName.GetAssemblyName(file);
+                    assemblies.Add(AppDomain.CurrentDomain.Load(assemblyName));
+                }
+                catch (FileLoadException)
+                {
+                    Console.WriteLine($"Error loading assembly: {file}");
+                }
+                catch (BadImageFormatException)
+                {
+                    Console.WriteLine($"Invalid assembly format: {file}");
+                }
+                catch (FileNotFoundException)
+                {
+
+                    Console.WriteLine($"File not found: {file}");
+                }
+            }
 
             return assemblies;
         }

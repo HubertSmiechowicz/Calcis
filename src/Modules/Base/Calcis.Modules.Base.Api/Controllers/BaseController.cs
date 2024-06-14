@@ -14,43 +14,37 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Calcis.Modules.Base.Api.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    internal class BaseController : ControllerBase
+    internal class BaseController : IBaseController
     {
         private IMediator Mediator { get; }
         private Logger<BaseController> Logger { get; }
 
-        public BaseController(IMediator mediator, Logger<BaseController> logger) 
+        public BaseController(IMediator mediator, Logger<BaseController> logger)
         {
             Mediator = mediator;
             Logger = logger;
         }
 
-        [HttpGet("hello")]
-        public ActionResult<List<MessageDto>> Hello([FromQuery] Hello query)
+        public List<MessageDto> Hello(Hello query)
         {
             var response = Mediator.Send(query);
 
             return response.Result;
         }
 
-        [HttpGet("message")]
-        public ActionResult<MessageDto> GetMessage([FromQuery] GetMessage query)
+        public MessageDto GetMessage(GetMessage query)
         {
             var response = Mediator.Send(query);
 
             return response.Result;
         }
 
-        [HttpPost("message")]
-        public ActionResult<MessageDto> SendMessage([FromBody] AddMessage command)
+        public MessageDto SendMessage(AddMessage command)
         {
-            if ((command.Name == null || command.Name == "") || (command.Value == null || command.Value == "")) 
+            if ((command.Name == null || command.Name == "") || (command.Value == null || command.Value == ""))
             {
                 var ex = new ArgumentNullException();
                 Logger.LogError(ex, $"Name or Value cannot be empty\n {ex.StackTrace}");
-                return BadRequest();
             }
 
             var response = Mediator.Send(command);

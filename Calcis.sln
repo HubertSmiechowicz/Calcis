@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{C747
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{11AF223C-1C79-4242-B5DC-F44DE44531FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcis.Bootstraper", "src\Bootstraper\Calcis.Bootstraper\Calcis.Bootstraper.csproj", "{0DB90601-3EB0-4579-A74A-846B019064BA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{156E8E81-10BA-421A-8D4C-2700EC2E0D06}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcis.Modules.Base.Api", "src\Modules\Base\Calcis.Modules.Base.Api\Calcis.Modules.Base.Api.csproj", "{F46ADC8C-9ADC-4782-9C8A-ED56732FE0AF}"
@@ -25,16 +23,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcis.Modules.Base.Infrast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcis.Shared.Infrastructure", "src\Shared\Calcis.Shared.Infrastructure\Calcis.Shared.Infrastructure.csproj", "{612CA759-B218-4F0B-9ECC-CC20C2085FFC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calcis.Bootstraper", "src\Bootstraper\Calcis.Bootstraper\Calcis.Bootstraper.csproj", "{0F95684A-97B6-4D14-9B22-D6BA2C41C301}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0DB90601-3EB0-4579-A74A-846B019064BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0DB90601-3EB0-4579-A74A-846B019064BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0DB90601-3EB0-4579-A74A-846B019064BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0DB90601-3EB0-4579-A74A-846B019064BA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F46ADC8C-9ADC-4782-9C8A-ED56732FE0AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F46ADC8C-9ADC-4782-9C8A-ED56732FE0AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F46ADC8C-9ADC-4782-9C8A-ED56732FE0AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -59,12 +55,15 @@ Global
 		{612CA759-B218-4F0B-9ECC-CC20C2085FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{612CA759-B218-4F0B-9ECC-CC20C2085FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{612CA759-B218-4F0B-9ECC-CC20C2085FFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F95684A-97B6-4D14-9B22-D6BA2C41C301}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F95684A-97B6-4D14-9B22-D6BA2C41C301}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F95684A-97B6-4D14-9B22-D6BA2C41C301}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F95684A-97B6-4D14-9B22-D6BA2C41C301}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0DB90601-3EB0-4579-A74A-846B019064BA} = {F807CD0E-0693-4FE5-891E-544F5DC9A931}
 		{156E8E81-10BA-421A-8D4C-2700EC2E0D06} = {C7476297-878A-4FFB-BBF0-79CDBE8F7331}
 		{F46ADC8C-9ADC-4782-9C8A-ED56732FE0AF} = {156E8E81-10BA-421A-8D4C-2700EC2E0D06}
 		{E8CF9C15-50A7-45B7-BAAE-10D91AFB5BDF} = {11AF223C-1C79-4242-B5DC-F44DE44531FD}
@@ -72,6 +71,7 @@ Global
 		{6E3E8E12-B77E-49F8-AE24-4E2D94E0E921} = {156E8E81-10BA-421A-8D4C-2700EC2E0D06}
 		{7644B8B6-B3C6-42BB-8770-B92A34989BD1} = {156E8E81-10BA-421A-8D4C-2700EC2E0D06}
 		{612CA759-B218-4F0B-9ECC-CC20C2085FFC} = {11AF223C-1C79-4242-B5DC-F44DE44531FD}
+		{0F95684A-97B6-4D14-9B22-D6BA2C41C301} = {F807CD0E-0693-4FE5-891E-544F5DC9A931}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7247945B-281D-4FCE-8A2E-7BED08698F51}

@@ -9,7 +9,7 @@ using Calcis.Modules.Base.Application.DTO;
 
 namespace Calcis.Modules.Base.Application.Commands
 {
-    internal class AddMessage : IRequest<MessageDto>
+    public class AddMessage : IRequest<MessageDto>
     {
         public string? Name { get; set; }
         public string? Value { get; set; }

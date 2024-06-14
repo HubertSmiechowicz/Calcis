@@ -1,9 +1,9 @@
+using Calcis.Bootstraper.Components;
 using Calcis.Modules.Base.Application.Queries.Handlers;
 using Calcis.Shared.Infrastructure.Api;
 using Calcis.Shared.Infrastructure.Modules;
 using Calcis.Shared.Infrastructure.Database;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using System.Reflection;
 using NLog;
@@ -27,11 +27,8 @@ try
     builder.Services.AddSharedInfrastructure();
 
     // Add services to the container.
-    builder.Services.AddControllers()
-        .ConfigureApplicationPartManager(manager =>
-        {
-            manager.FeatureProviders.Add(new InternalControllerFeatureProvider());
-        });
+    builder.Services.AddRazorComponents()
+        .AddInteractiveServerComponents();
 
     // Add Nlog to the container
     builder.Logging.ClearProviders();
@@ -52,27 +49,23 @@ try
         return new MongoClient(settings.ConnectionString);
     });
 
-
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen(c =>
-    {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Calcis API", Version = "v1" });
-    });
-
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
+    if (!app.Environment.IsDevelopment())
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseExceptionHandler("/Error", createScopeForErrors: true);
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
     }
 
     app.UseHttpsRedirection();
 
-    app.UseAuthorization();
+    app.UseStaticFiles();
+    app.UseAntiforgery();
 
-    app.MapControllers();
+    app.MapRazorComponents<App>()
+        .AddInteractiveServerRenderMode();
 
     app.Run();
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calcis.Modules.Base.Application.DTO
 {
-    internal class MessageDto
+    public class MessageDto
     {
         public string? Name { get; set; }
         public string? Value { get; set; }

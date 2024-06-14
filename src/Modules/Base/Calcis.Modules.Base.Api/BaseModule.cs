@@ -1,4 +1,5 @@
-﻿using Calcis.Modules.Base.Core;
+﻿using Calcis.Modules.Base.Api.Controllers;
+using Calcis.Modules.Base.Core;
 using Calcis.Shared.Abstractions.Modules;
 using Calcis.Shared.Infrastructure.Modules;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,7 @@ namespace Calcis.Modules.Base.Api
 
         public void Register(IServiceCollection service)
         {
+            service.AddTransient<IBaseController, BaseController>();
             LayerLoader.RegisterLayers(service, "Base.");
         }
     }

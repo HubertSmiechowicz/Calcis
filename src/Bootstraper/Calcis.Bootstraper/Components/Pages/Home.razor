@@ -1,0 +1,29 @@
+﻿@page "/"
+@using Calcis.Modules.Base.Api.Controllers
+@using Calcis.Modules.Base.Application.DTO
+@inject IBaseController Data
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<ul>
+    @foreach (var item in data)
+    {
+        <li>
+            <p>@item.Name</p>
+            <p>@item.Value</p>
+        </li>
+    }
+</ul>
+
+@code {
+    private List<MessageDto> data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        data = Data.Hello(new Modules.Base.Application.Queries.Hello());
+    }
+}
