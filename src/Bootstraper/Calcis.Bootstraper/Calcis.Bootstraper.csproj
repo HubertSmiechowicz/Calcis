@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Base\Calcis.Modules.Base.Api\Calcis.Modules.Base.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Base\Calcis.Modules.Base.View\Calcis.Modules.Base.View.csproj" />
     <ProjectReference Include="..\..\Shared\Calcis.Shared.Infrastructure\Calcis.Shared.Infrastructure.csproj" />
   </ItemGroup>
 

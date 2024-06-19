@@ -65,6 +65,7 @@ try
     app.UseAntiforgery();
 
     app.MapRazorComponents<App>()
+        .AddAdditionalAssemblies([.. ViewLoader.LoadViews()])
         .AddInteractiveServerRenderMode();
 
     app.Run();
