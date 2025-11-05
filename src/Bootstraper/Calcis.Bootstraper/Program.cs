@@ -8,6 +8,8 @@ using MongoDB.Driver;
 using System.Reflection;
 using NLog;
 using NLog.Web;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Calcis.Shared.Infrastructure;
 
 var logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
@@ -47,6 +49,13 @@ try
     {
         var settings = sp.GetRequiredService<IOptions<MongoDbSettings>>().Value;
         return new MongoClient(settings.ConnectionString);
+    });
+
+    // Add Redis distributed caching to the container
+    builder.Services.AddStackExchangeRedisCache(options =>
+    {
+        options.Configuration = builder.Configuration["Redis:Configuration"];
+        options.InstanceName = builder.Configuration["Redis:InstanceName"];
     });
 
     var app = builder.Build();
