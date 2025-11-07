@@ -13,8 +13,10 @@ namespace Calcis.Modules.Base.Infrastructure
         public void Register(IServiceCollection service)
         {
             service
-                .AddSingleton<BaseDbContext>()
-                .AddTransient<IBaseRepository, BaseRepository>();
+                .AddSingleton<BaseReadDbContext>()
+                .AddSingleton<BaseWriteDbContext>()
+                .AddTransient<IBaseReadRepository, BaseReadRepository>()
+                .AddTransient<IBaseWriteRepository, BaseWriteRepository>();
         }
     }
 }

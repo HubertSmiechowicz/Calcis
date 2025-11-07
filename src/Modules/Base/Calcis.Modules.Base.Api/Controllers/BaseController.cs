@@ -8,6 +8,7 @@ using Calcis.Modules.Base.Application.DTO;
 using Calcis.Modules.Base.Application.Queries;
 using Calcis.Shared.Infrastructure.Logging;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using Swashbuckle.AspNetCore.Annotations;
@@ -16,7 +17,8 @@ namespace Calcis.Modules.Base.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BaseController
+    
+    public class BaseController : ControllerBase
     {
         private IMediator Mediator { get; }
         private Logger<BaseController> Logger { get; }
@@ -27,8 +29,13 @@ namespace Calcis.Modules.Base.Api.Controllers
             Logger = logger;
         }
 
+        [HttpGet("ping")]
+        [AllowAnonymous]
+        public string Ping() => "pong";
+
         [HttpGet("hello")]
-        public List<MessageDto> Hello(Hello query)
+        [Authorize]
+        public List<MessageDto> Hello([FromQuery] Hello query)
         {
             var response = Mediator.Send(query);
 
@@ -36,6 +43,7 @@ namespace Calcis.Modules.Base.Api.Controllers
         }
 
         [HttpGet("message")]
+        [Authorize]
         public MessageDto GetMessage([FromQuery] GetMessage query)
         {
             var response = Mediator.Send(query);
@@ -44,6 +52,7 @@ namespace Calcis.Modules.Base.Api.Controllers
         }
 
         [HttpPost("message")]
+        [Authorize]
         public MessageDto SendMessage([FromBody] AddMessage command)
         {
             if ((command.Name == null || command.Name == "") || (command.Value == null || command.Value == ""))

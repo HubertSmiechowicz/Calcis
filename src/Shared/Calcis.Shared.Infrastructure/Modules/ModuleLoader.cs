@@ -3,11 +3,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calcis.Shared.Infrastructure.Modules
 {
@@ -17,36 +15,25 @@ namespace Calcis.Shared.Infrastructure.Modules
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
             var locations = assemblies.Where(x => !x.IsDynamic).Select(x => x.Location).ToArray();
+
             var files = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll")
                 .Where(x => !locations.Contains(x, StringComparer.InvariantCultureIgnoreCase))
+                .Where(x => x.Contains("Calcis.Modules.")) // tylko moduły
                 .ToList();
 
             foreach (var file in files)
             {
-                if (!file.Contains("Calcis.Modules."))
-                {
-                    continue;
-                }
-
-                var moduleName = file.Split("Calcis.Modules.")[1].Split(".")[0].ToLowerInvariant();
-
                 try
                 {
                     var assemblyName = AssemblyName.GetAssemblyName(file);
                     assemblies.Add(AppDomain.CurrentDomain.Load(assemblyName));
                 }
-                catch (FileLoadException)
+                catch (Exception ex) when (
+                    ex is FileLoadException ||
+                    ex is BadImageFormatException ||
+                    ex is FileNotFoundException)
                 {
-                    Console.WriteLine($"Error loading assembly: {file}");
-                }
-                catch (BadImageFormatException)
-                {
-                    Console.WriteLine($"Invalid assembly format: {file}");
-                }
-                catch (FileNotFoundException)
-                {
-
-                    Console.WriteLine($"File not found: {file}");
+                    Console.WriteLine($"[ModuleLoader] Skipping {file}: {ex.Message}");
                 }
             }
 
@@ -54,23 +41,33 @@ namespace Calcis.Shared.Infrastructure.Modules
         }
 
         private static IList<IModule> LoadModules()
-        => LoadAssemblies()
-            .SelectMany(x => x.GetTypes())
-            .Where(x => typeof(IModule).IsAssignableFrom(x) && !x.IsInterface)
-            .OrderBy(x => x.Name)
-            .Select(Activator.CreateInstance)
-            .Cast<IModule>()
-            .ToList();
-
-
-        public static void RegisterModules(IServiceCollection service)
         {
-            var modules = LoadModules();
+            return LoadAssemblies()
+                .SelectMany(x => x.GetTypes())
+                .Where(x => typeof(IModule).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+                .OrderBy(x => x.Name)
+                .Select(Activator.CreateInstance)
+                .Cast<IModule>()
+                .ToList();
+        }
 
+        /// <summary>
+        /// Rejestruje wszystkie moduły aplikacji i ich kontrolery.
+        /// </summary>
+        public static IMvcBuilder RegisterModules(IServiceCollection services)
+        {
+            // Tworzymy wspólny builder MVC
+            var mvcBuilder = services.AddControllers();
+
+            // Ładujemy wszystkie moduły
+            var modules = LoadModules();
             foreach (var module in modules)
             {
-                module.Register(service);
+                // Nowa wersja interfejsu — przekazujemy IMvcBuilder
+                module.Register(services, mvcBuilder);
             }
+
+            return mvcBuilder;
         }
     }
 }

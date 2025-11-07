@@ -9,6 +9,6 @@ namespace Calcis.Shared.Abstractions.Modules
 {
     public interface IModule
     {
-        void Register(IServiceCollection service);
+        void Register(IServiceCollection services, IMvcBuilder mvc);
     }
 }

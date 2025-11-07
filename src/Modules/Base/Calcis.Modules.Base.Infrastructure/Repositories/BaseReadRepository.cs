@@ -10,25 +10,13 @@ using System.Threading.Tasks;
 
 namespace Calcis.Modules.Base.Infrastructure.Repositories
 {
-    internal class BaseRepository : IBaseRepository
+    internal class BaseReadRepository : IBaseReadRepository
     {
-        private BaseDbContext Context { get; }
+        private BaseReadDbContext Context { get; }
 
-        public BaseRepository(BaseDbContext context) 
+        public BaseReadRepository(BaseReadDbContext context) 
         {
             Context = context;
-        }
-
-        public void AddMessage(Message message)
-        {
-            var messageDao = new MessageDao()
-            {
-                Name = message.Name,
-                Value = message.Value,
-                CreatedDate = DateTime.Now,
-            };
-
-            Context.Messages.InsertOne(messageDao);
         }
 
         public List<Message> GetMessages()

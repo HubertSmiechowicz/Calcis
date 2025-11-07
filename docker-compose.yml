@@ -1,0 +1,143 @@
+version: '3.9'
+
+services:
+  # ======================================================
+  # APLIKACJA CALCIS (.NET)
+  # ======================================================
+  calcis:
+    build:
+      context: .
+      dockerfile: src/Bootstraper/Calcis.Bootstraper/Dockerfile
+    container_name: calcis_app
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+      # MongoDB (CQRS - read / write)
+      - MongoDbSettings__WriteConnectionString=mongodb://mongo-write:27019
+      - MongoDbSettings__WriteDatabase=CalcisTelemetryWrite
+      - MongoDbSettings__ReadConnectionString=mongodb://mongo-read:27020
+      - MongoDbSettings__ReadDatabase=CalcisTelemetryRead
+
+      # PostgreSQL (CQRS - read / write)
+      - ConnectionStrings__PostgresWrite=Host=postgres-write;Port=5432;Database=calcis_write;Username=calcis;Password=calcispass
+      - ConnectionStrings__PostgresRead=Host=postgres-read;Port=5432;Database=calcis_read;Username=calcis;Password=calcispass
+
+      # Keycloak
+      - Keycloak__Authority=http://keycloak:8080/realms/calcis
+      - Keycloak__ClientId=calcis-app
+      - Keycloak__ClientSecret=dev-secret
+
+    depends_on:
+      - mongo-write
+      - mongo-read
+      - postgres-write
+      - postgres-read
+      - keycloak
+    networks:
+      - calcis_network
+
+  # ======================================================
+  # MONGODB - WRITE
+  # ======================================================
+  mongo-write:
+    image: mongo:8.2
+    container_name: mongo_write
+    restart: always
+    ports:
+      - "27019:27017"
+    volumes:
+      - mongo_write_data:/data/db
+    networks:
+      - calcis_network
+
+  # ======================================================
+  # MONGODB - READ
+  # ======================================================
+  mongo-read:
+    image: mongo:8.2
+    container_name: mongo_read
+    restart: always
+    ports:
+      - "27020:27017"
+    volumes:
+      - mongo_read_data:/data/db
+    networks:
+      - calcis_network
+
+  # ======================================================
+  # POSTGRESQL - WRITE
+  # ======================================================
+  postgres-write:
+    image: postgres:16
+    container_name: postgres_write
+    restart: always
+    environment:
+      POSTGRES_DB: calcis_write
+      POSTGRES_USER: calcis
+      POSTGRES_PASSWORD: calcispass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_write_data:/var/lib/postgresql/data
+    networks:
+      - calcis_network
+
+  # ======================================================
+  # POSTGRESQL - READ
+  # ======================================================
+  postgres-read:
+    image: postgres:16
+    container_name: postgres_read
+    restart: always
+    environment:
+      POSTGRES_DB: calcis_read
+      POSTGRES_USER: calcis
+      POSTGRES_PASSWORD: calcispass
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_read_data:/var/lib/postgresql/data
+    networks:
+      - calcis_network
+
+  # ======================================================
+  # KEYCLOAK
+  # ======================================================
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.2
+    container_name: keycloak
+    restart: always
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres-write:5432/calcis_write
+      KC_DB_USERNAME: calcis
+      KC_DB_PASSWORD: calcispass
+      KC_HOSTNAME: host.docker.internal
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command:
+      - start-dev
+    volumes:
+      - ./keycloak/realm-export:/opt/keycloak/data/import
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres-write
+    networks:
+      - calcis_network
+
+# ======================================================
+# VOLUMES & NETWORK
+# ======================================================
+volumes:
+  mongo_write_data:
+  mongo_read_data:
+  postgres_write_data:
+  postgres_read_data:
+
+networks:
+  calcis_network:
+    driver: bridge

@@ -17,12 +17,9 @@ namespace Calcis.Modules.Base.Api
     {
         public BaseModule() { }
 
-        public void Register(IServiceCollection service)
+        public void Register(IServiceCollection service, IMvcBuilder mvc)
         {
-            service
-                .AddControllers()
-                .AddApplicationPart(typeof(BaseController).Assembly)
-                .AddControllersAsServices();
+            mvc.AddApplicationPart(typeof(BaseController).Assembly);
             LayerLoader.RegisterLayers(service, "Base.");
         }
     }

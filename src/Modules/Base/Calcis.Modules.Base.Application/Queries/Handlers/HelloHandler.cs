@@ -11,9 +11,9 @@ namespace Calcis.Modules.Base.Application.Queries.Handlers
 {
     internal class HelloHandler : IRequestHandler<Hello, List<MessageDto>>
     {
-        private IBaseRepository BaseRepository { get; }
+        private IBaseReadRepository BaseRepository { get; }
 
-        public HelloHandler(IBaseRepository baseRepository)
+        public HelloHandler(IBaseReadRepository baseRepository)
         {
             BaseRepository = baseRepository;
         }

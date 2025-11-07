@@ -8,7 +8,9 @@ namespace Calcis.Shared.Infrastructure.Database
 {
     public class MongoDbSettings
     {
-        public string ConnectionString { get; set; }
-        public string DatabaseName { get; set; }
+        public string WriteConnectionString { get; set; } = string.Empty;
+        public string WriteDatabase { get; set; } = string.Empty;
+        public string ReadConnectionString { get; set; } = string.Empty;
+        public string ReadDatabase { get; set; } = string.Empty;
     }
 }

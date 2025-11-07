@@ -12,9 +12,9 @@ namespace Calcis.Modules.Base.Application.Commands.Handlers
 {
     internal class AddMessageHandler : IRequestHandler<AddMessage, MessageDto>
     {
-        private IBaseRepository BaseRepository { get; }
+        private IBaseWriteRepository BaseRepository { get; }
 
-        public AddMessageHandler(IBaseRepository baseRepository) 
+        public AddMessageHandler(IBaseWriteRepository baseRepository) 
         {
             BaseRepository = baseRepository;
         }

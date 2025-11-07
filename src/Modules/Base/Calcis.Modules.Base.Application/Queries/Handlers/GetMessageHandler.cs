@@ -11,9 +11,9 @@ namespace Calcis.Modules.Base.Application.Queries.Handlers
 {
     internal class GetMessageHandler : IRequestHandler<GetMessage, MessageDto>
     {
-        private IBaseRepository BaseRepository { get; }
+        private IBaseReadRepository BaseRepository { get; }
 
-        public GetMessageHandler(IBaseRepository baseRepository) 
+        public GetMessageHandler(IBaseReadRepository baseRepository) 
         {
             BaseRepository = baseRepository;
         }
