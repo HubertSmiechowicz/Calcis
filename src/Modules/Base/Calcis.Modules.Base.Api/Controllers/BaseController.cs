@@ -14,7 +14,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Calcis.Modules.Base.Api.Controllers
 {
-    internal class BaseController : IBaseController
+    [ApiController]
+    [Route("api/[controller]")]
+    public class BaseController
     {
         private IMediator Mediator { get; }
         private Logger<BaseController> Logger { get; }
@@ -25,6 +27,7 @@ namespace Calcis.Modules.Base.Api.Controllers
             Logger = logger;
         }
 
+        [HttpGet("hello")]
         public List<MessageDto> Hello(Hello query)
         {
             var response = Mediator.Send(query);
@@ -32,14 +35,16 @@ namespace Calcis.Modules.Base.Api.Controllers
             return response.Result;
         }
 
-        public MessageDto GetMessage(GetMessage query)
+        [HttpGet("message")]
+        public MessageDto GetMessage([FromQuery] GetMessage query)
         {
             var response = Mediator.Send(query);
 
             return response.Result;
         }
 
-        public MessageDto SendMessage(AddMessage command)
+        [HttpPost("message")]
+        public MessageDto SendMessage([FromBody] AddMessage command)
         {
             if ((command.Name == null || command.Name == "") || (command.Value == null || command.Value == ""))
             {

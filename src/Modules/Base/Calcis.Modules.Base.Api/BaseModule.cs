@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-[assembly: InternalsVisibleTo("Calcis.Modules.Base.View")]
+[assembly: InternalsVisibleTo("Calcis.Bootstraper")]
 namespace Calcis.Modules.Base.Api
 {
     internal class BaseModule : IModule
@@ -19,7 +19,10 @@ namespace Calcis.Modules.Base.Api
 
         public void Register(IServiceCollection service)
         {
-            service.AddTransient<IBaseController, BaseController>();
+            service
+                .AddControllers()
+                .AddApplicationPart(typeof(BaseController).Assembly)
+                .AddControllersAsServices();
             LayerLoader.RegisterLayers(service, "Base.");
         }
     }

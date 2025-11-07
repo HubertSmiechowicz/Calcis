@@ -1,16 +1,12 @@
-using Calcis.Bootstraper.Components;
 using Calcis.Modules.Base.Application.Queries.Handlers;
-using Calcis.Shared.Infrastructure.Api;
-using Calcis.Shared.Infrastructure.Modules;
+using Calcis.Shared.Infrastructure;
 using Calcis.Shared.Infrastructure.Database;
+using Calcis.Shared.Infrastructure.Modules;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using System.Reflection;
 using NLog;
 using NLog.Web;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
-using Calcis.Shared.Infrastructure;
+using System.Reflection;
 
 var logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
 logger.Debug("init main");
@@ -19,18 +15,18 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
+    // Add swagger to app
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+
     // Add secret.json to the container
     builder.Configuration
            .SetBasePath(Directory.GetCurrentDirectory())
            .AddJsonFile("secret.json", optional: false, reloadOnChange: true);
 
-    // Add modules to the contrainter
+    // Add modules to the container
     ModuleLoader.RegisterModules(builder.Services);
     builder.Services.AddSharedInfrastructure();
-
-    // Add services to the container.
-    builder.Services.AddRazorComponents()
-        .AddInteractiveServerComponents();
 
     // Add Nlog to the container
     builder.Logging.ClearProviders();
@@ -60,22 +56,24 @@ try
 
     var app = builder.Build();
 
+    // Add swagger UI in development enviroment
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
     // Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment())
     {
-        app.UseExceptionHandler("/Error", createScopeForErrors: true);
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseExceptionHandler("/error");
         app.UseHsts();
     }
 
     app.UseHttpsRedirection();
 
-    app.UseStaticFiles();
-    app.UseAntiforgery();
-
-    app.MapRazorComponents<App>()
-        .AddAdditionalAssemblies([.. ViewLoader.LoadViews()])
-        .AddInteractiveServerRenderMode();
+    // Map Controllers (API)
+    app.MapControllers();
 
     app.Run();
 }
