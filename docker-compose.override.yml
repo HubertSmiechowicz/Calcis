@@ -38,6 +38,8 @@ services:
       - keycloak
     networks:
       - calcis_network
+    volumes:
+      - calcis_logs:/logs
 
   # ======================================================
   # MONGODB - WRITE
@@ -107,7 +109,7 @@ services:
   # KEYCLOAK
   # ======================================================
   keycloak:
-    image: quay.io/keycloak/keycloak:25.0.2
+    image: quay.io/keycloak/keycloak:22.0.3
     container_name: keycloak
     restart: always
     environment:
@@ -118,14 +120,46 @@ services:
       KC_HOSTNAME: host.docker.internal
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+
+      # --- RabbitMQ listener plugin configuration ---
+      KK_TO_RMQ_URL: rabbitmq
+      KK_TO_RMQ_PORT: 5672
+      KK_TO_RMQ_USERNAME: admin
+      KK_TO_RMQ_PASSWORD: admin
+      KK_TO_RMQ_EXCHANGE: keycloak.events
+      KK_TO_RMQ_ROUTING_KEY: keycloak.event
+      KK_TO_RMQ_EVENTS_QUEUE_ENABLED: 'true'
+      KK_TO_RMQ_VHOST: /
+
     command:
       - start-dev
+
     volumes:
       - ./keycloak/realm-export:/opt/keycloak/data/import
+      - ./keycloak/providers:/opt/keycloak/providers
     ports:
       - "8081:8080"
     depends_on:
       - postgres-write
+      - rabbitmq
+    networks:
+      - calcis_network
+
+  # ======================================================
+  # RABBITMQ
+  # ======================================================
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"     # port do komunikacji z aplikacjami
+      - "15672:15672"   # panel zarzadzania (UI)
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
     networks:
       - calcis_network
 
@@ -137,6 +171,8 @@ volumes:
   mongo_read_data:
   postgres_write_data:
   postgres_read_data:
+  rabbitmq_data:
+  calcis_logs:
 
 networks:
   calcis_network:

@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using NLog;
 using NLog.Web;
+using RabbitMQ.Client;
 using System.Reflection;
 
 var logger = LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
@@ -71,10 +72,6 @@ try
            .SetBasePath(Directory.GetCurrentDirectory())
            .AddJsonFile("secret.json", optional: false, reloadOnChange: true);
 
-    // Add modules to the container (³aduje kontrolery)
-    var mvcBuilder = ModuleLoader.RegisterModules(builder.Services);
-    builder.Services.AddSharedInfrastructure();
-
     // Add Nlog to the container
     builder.Logging.ClearProviders();
     builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
@@ -107,6 +104,23 @@ try
         options.Configuration = builder.Configuration["Redis:Configuration"];
         options.InstanceName = builder.Configuration["Redis:InstanceName"];
     });
+
+    // Add RabbitMQ connection to the container
+    builder.Services.AddSingleton<Task<IConnection>>(sp =>
+    {
+        var factory = new ConnectionFactory
+        {
+            HostName = "rabbitmq",
+            Port = 5672,
+            UserName = "admin",
+            Password = "admin"
+        };
+        return factory.CreateConnectionAsync();
+    });
+
+    // Add modules to the container (³aduje kontrolery)
+    var mvcBuilder = ModuleLoader.RegisterModules(builder.Services);
+    builder.Services.AddSharedInfrastructure();
 
     // Add Authentication with JWT Bearer
     var keycloakAuthority = builder.Configuration["Keycloak:Authority"]; // np. "http://keycloak:8080/realms/calcis"
