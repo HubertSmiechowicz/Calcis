@@ -7,14 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Abstractions\Calcis.Shared.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Infrastructure\Calcis.Shared.Infrastructure.csproj" />
-    <ProjectReference Include="..\Calcis.Modules.Employee.Application\Calcis.Modules.Employee.Application.csproj" />
-    <ProjectReference Include="..\Calcis.Modules.Employee.Infrastructure\Calcis.Modules.Employee.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

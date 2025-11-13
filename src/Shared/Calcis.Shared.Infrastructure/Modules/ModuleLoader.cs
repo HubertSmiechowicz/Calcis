@@ -69,5 +69,14 @@ namespace Calcis.Shared.Infrastructure.Modules
 
             return mvcBuilder;
         }
+
+        public static void RegisterContexts(IServiceProvider serviceProvider)
+        {
+            var modules = LoadModules();
+            foreach (var module in modules)
+            {
+                module.RegisterContexts(serviceProvider);
+            }
+        }
     }
 }

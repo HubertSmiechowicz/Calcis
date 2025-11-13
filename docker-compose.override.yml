@@ -117,7 +117,7 @@ services:
       KC_DB_URL: jdbc:postgresql://postgres-write:5432/calcis_write
       KC_DB_USERNAME: calcis
       KC_DB_PASSWORD: calcispass
-      KC_HOSTNAME: host.docker.internal
+      KC_HOSTNAME: localhost
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
 

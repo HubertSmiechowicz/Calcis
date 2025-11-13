@@ -11,7 +11,7 @@ using System.Xml;
 
 namespace Calcis.Modules.Base.Infrastructure
 {
-    internal class BaseWriteDbContext : DbContext
+    internal class BaseWriteDbContext : MongoDbContext
     {
         public BaseWriteDbContext(IWriteMongoClient writeClient, IReadMongoClient readClient, IOptions<MongoDbSettings> settings) : base(readClient, writeClient, settings)
         {

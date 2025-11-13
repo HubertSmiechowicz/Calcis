@@ -22,5 +22,10 @@ namespace Calcis.Modules.Base.Api
             mvc.AddApplicationPart(typeof(BaseController).Assembly);
             LayerLoader.RegisterLayers(service, "Base.");
         }
+
+        public void RegisterContexts(IServiceProvider serviceProvider)
+        {
+            LayerLoader.RegisterContexts(serviceProvider, "Base.");
+        }
     }
 }

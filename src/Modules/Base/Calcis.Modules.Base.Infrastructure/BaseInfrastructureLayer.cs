@@ -18,5 +18,9 @@ namespace Calcis.Modules.Base.Infrastructure
                 .AddTransient<IBaseReadRepository, BaseReadRepository>()
                 .AddTransient<IBaseWriteRepository, BaseWriteRepository>();
         }
+
+        public void RegisterContexts(IServiceProvider serviceProvider)
+        {
+        }
     }
 }

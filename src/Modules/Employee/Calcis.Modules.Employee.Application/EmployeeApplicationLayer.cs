@@ -1,25 +1,22 @@
-﻿using Calcis.Modules.Base.Application.Queries.Handlers;
+﻿using Calcis.Modules.Employee.Application.Commands.Handlers;
 using Calcis.Shared.Abstractions.Modules;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-[assembly: InternalsVisibleTo("Calcis.Modules.Base.Api")]
+[assembly: InternalsVisibleTo("Calcis.Modules.Employee.Infrastructure")]
 [assembly: InternalsVisibleTo("Calcis.Bootstraper")]
-namespace Calcis.Modules.Base.Application
+namespace Calcis.Modules.Employee.Application
 {
-    internal class BaseApplicationLayer : ILayer
+    public class EmployeeApplicationLayer : ILayer
+
     {
         public void Register(IServiceCollection service)
         {
             service.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
                     Assembly.GetExecutingAssembly(),
-                    Assembly.GetAssembly(typeof(HelloHandler))
+                    Assembly.GetAssembly(typeof(CreateUserHandler))
                 ));
         }
 

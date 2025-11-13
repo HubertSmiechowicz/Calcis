@@ -10,5 +10,6 @@ namespace Calcis.Shared.Abstractions.Modules
     public interface ILayer
     {
         void Register(IServiceCollection service);
+        void RegisterContexts(IServiceProvider serviceProvider);
     }
 }

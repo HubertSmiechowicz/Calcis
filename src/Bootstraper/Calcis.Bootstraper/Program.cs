@@ -1,8 +1,10 @@
 using Calcis.Modules.Base.Application.Queries.Handlers;
+using Calcis.Modules.Employee.Infrastructure.Database;
 using Calcis.Shared.Infrastructure;
 using Calcis.Shared.Infrastructure.Database;
 using Calcis.Shared.Infrastructure.Modules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -76,12 +78,6 @@ try
     builder.Logging.ClearProviders();
     builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
     builder.Host.UseNLog();
-
-    // Add MediatR to the container
-    builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
-            Assembly.GetExecutingAssembly(),
-            Assembly.GetAssembly(typeof(HelloHandler))
-        ));
 
     // Add MongoDB to the container
     builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
@@ -162,9 +158,9 @@ try
         };
     });
 
-
-
     var app = builder.Build();
+
+    ModuleLoader.RegisterContexts(app.Services);
 
     // Add swagger UI in development enviroment
     if (app.Environment.IsDevelopment())

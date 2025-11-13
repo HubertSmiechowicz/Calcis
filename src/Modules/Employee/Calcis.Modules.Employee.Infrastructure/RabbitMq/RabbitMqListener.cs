@@ -1,5 +1,9 @@
-﻿using Calcis.Shared.Infrastructure.Logging;
+﻿using Calcis.Modules.Employee.Application.Commands;
+using Calcis.Modules.Employee.Application.Commands.Models;
+using Calcis.Shared.Infrastructure.Logging;
+using MediatR;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -14,11 +18,13 @@ namespace Calcis.Modules.Employee.Infrastructure.RabbitMq
     {
         private readonly Task<IConnection> _connectionTask;
         private Logger<RabbitMqListener> _logger;
+        private IMediator _mediator { get; }
 
-        public RabbitMqListener(Task<IConnection> connectionTask, Logger<RabbitMqListener> logger)
+        public RabbitMqListener(Task<IConnection> connectionTask, Logger<RabbitMqListener> logger, IMediator mediator)
         {
             _connectionTask = connectionTask;
             _logger = logger;
+            _mediator = mediator;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -42,8 +48,21 @@ namespace Calcis.Modules.Employee.Infrastructure.RabbitMq
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
 
-                    // Tu możesz dodać logikę (np. zapis do read model)
-                    await Task.Yield(); // żeby handler był async
+                    _logger.LogInformation(new Exception("Otrzymano wiadomość z RabbitMQ: "), message);
+
+                    var keycloakEvent = JsonConvert.DeserializeObject<KeycloakEvent>(message);
+
+                    if (keycloakEvent?.ResourceType == "USER")
+                    {
+                        // TODO::Add handling for user events: CREATE, UPDATE, DELETE
+                        var createUser = JsonConvert.DeserializeObject<CreateUserCommand>(message);
+                        if (createUser is not null)
+                            await _mediator.Send(createUser);
+                    }
+                    else if (keycloakEvent?.ResourceType == "GROUP_MEMBERSHIP")
+                    {
+                        // TODO::Add handling for group membership events
+                    }
                 };
 
                 await channel.BasicConsumeAsync(queue: queueName, autoAck: true, consumer: consumer);

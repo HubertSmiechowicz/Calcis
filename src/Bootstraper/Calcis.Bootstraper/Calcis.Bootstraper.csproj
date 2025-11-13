@@ -12,6 +12,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="NLog" Version="5.3.2" />
@@ -22,6 +26,7 @@
 	  <PackageReference Include="NLog" Version="5.3.2" />
 	  <PackageReference Include="NLog.Extensions.Logging" Version="5.3.11" />
 	  <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.11" />
+	  <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
 	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
 	  <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.6" />
   </ItemGroup>
@@ -29,6 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Base\Calcis.Modules.Base.Api\Calcis.Modules.Base.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Employee\Calcis.Modules.Employee.Api\Calcis.Modules.Employee.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Employee\Calcis.Modules.Employee.Infrastructure\Calcis.Modules.Employee.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Shared\Calcis.Shared.Infrastructure\Calcis.Shared.Infrastructure.csproj" />
   </ItemGroup>
 

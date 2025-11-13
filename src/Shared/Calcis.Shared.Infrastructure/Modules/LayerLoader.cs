@@ -70,5 +70,14 @@ namespace Calcis.Shared.Infrastructure.Modules
                 layer.Register(service);
             }
         }
+
+        public static void RegisterContexts(IServiceProvider serviceProvider, string layerPart)
+        {
+            var layers = LoadLayers(layerPart);
+            foreach (var layer in layers)
+            {
+                layer.RegisterContexts(serviceProvider);
+            }
+        }
     }
 }

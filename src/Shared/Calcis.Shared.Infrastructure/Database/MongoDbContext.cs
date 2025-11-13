@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Calcis.Shared.Infrastructure.Database
 {
-    public abstract class DbContext
+    public abstract class MongoDbContext
     {
         protected readonly IMongoDatabase WriteDB;
         protected readonly IMongoDatabase ReadDB;
 
-        protected DbContext(
+        protected MongoDbContext(
             IReadMongoClient readClient,
             IWriteMongoClient writeClient,
             IOptions<MongoDbSettings> settings)

@@ -14,5 +14,10 @@ namespace Calcis.Modules.Employee.Api
         {
             LayerLoader.RegisterLayers(service, "Employee.");
         }
+
+        public void RegisterContexts(IServiceProvider serviceProvider)
+        {
+            LayerLoader.RegisterContexts(serviceProvider, "Employee.");
+        }
     }
 }

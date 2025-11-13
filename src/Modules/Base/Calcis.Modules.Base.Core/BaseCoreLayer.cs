@@ -17,5 +17,9 @@ namespace Calcis.Modules.Base.Core
         public void Register(IServiceCollection service)
         {
         }
+
+        public void RegisterContexts(IServiceProvider serviceProvider)
+        {
+        }
     }
 }
