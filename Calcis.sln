@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Modules.Employee.App
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Modules.Employee.Core", "src\Modules\Employee\Calcis.Modules.Employee.Core\Calcis.Modules.Employee.Core.csproj", "{6E6DBFA3-BFB3-4332-840F-2BDAF1DA0F4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Shared.Events", "src\Shared\Calcis.Shared.Events\Calcis.Shared.Events.csproj", "{E5CEE892-794A-44E0-B903-B1783E7AF6DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,10 @@ Global
 		{6E6DBFA3-BFB3-4332-840F-2BDAF1DA0F4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E6DBFA3-BFB3-4332-840F-2BDAF1DA0F4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E6DBFA3-BFB3-4332-840F-2BDAF1DA0F4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5CEE892-794A-44E0-B903-B1783E7AF6DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5CEE892-794A-44E0-B903-B1783E7AF6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5CEE892-794A-44E0-B903-B1783E7AF6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5CEE892-794A-44E0-B903-B1783E7AF6DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{F2D13C87-5E6E-0042-E47B-3BDCDC80A335} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{AB450A89-BDCD-4429-A755-311EAF43F37B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{6E6DBFA3-BFB3-4332-840F-2BDAF1DA0F4F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{E5CEE892-794A-44E0-B903-B1783E7AF6DA} = {11AF223C-1C79-4242-B5DC-F44DE44531FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7247945B-281D-4FCE-8A2E-7BED08698F51}

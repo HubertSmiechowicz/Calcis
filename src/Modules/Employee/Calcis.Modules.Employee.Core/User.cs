@@ -48,10 +48,8 @@ namespace Calcis.Modules.Employee.Core
             if (HasInvalidRoleCombination(roles))
                 return;
 
-            if (roles.Contains(UserRole.Driver))
-                user.AddDomainEvent(new CreateDriver() { Id = user.Id.Value });
-            else if (roles.Contains(UserRole.Mechanic))
-                user.AddDomainEvent(new CreateMechanic() { Id = user.Id.Value });
+            if (roles.Contains(UserRole.Driver) || roles.Contains(UserRole.Mechanic))
+                user.AddDomainEvent(new CreateUser() { Id = user.Id.Value });
         }
 
         private static bool HasInvalidRoleCombination(List<UserRole> roles)

@@ -1,16 +1,19 @@
 ﻿using Calcis.Modules.Employee.Application.Repositories;
+using Calcis.Modules.Employee.Core;
+using Calcis.Modules.Employee.Core.DomainEvents;
+using Calcis.Modules.Employee.Core.ValueObjects;
+using Calcis.Shared.Abstractions.Core;
+using Calcis.Shared.Events.Employee;
 using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Calcis.Modules.Employee.Core;
-using Calcis.Modules.Employee.Core.ValueObjects;
 
 namespace Calcis.Modules.Employee.Application.Commands.Handlers
 {
-    internal class CreateUserHandler : IRequestHandler<CreateUserCommand>
+    internal class CreateUserHandler : IRequestHandler<CreateUserKeycloakCommand>
     {
         private IEmployeeReadModelWriter _employeeRepository { get; }
         private IMediator _mediator { get; }
@@ -21,17 +24,23 @@ namespace Calcis.Modules.Employee.Application.Commands.Handlers
             _mediator = mediator;
         }
 
-        public Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task Handle(CreateUserKeycloakCommand request, CancellationToken cancellationToken)
         {
-            // TODO::Add logic to handle user creation based on the request.Representation data.
-            if (request.Representation == null)
-                throw new ArgumentNullException(nameof(request.Representation), "Representation cannot be null");
+            var representation = request.Representation;
 
-            var user = User.Create(UserId.FromResourcePath(request.ResourcePath), request.Representation.Groups.Select(p => UserRole.FromString(p)).ToList());
+            if (representation == null)
+                throw new ArgumentNullException(nameof(representation), "Representation cannot be null");
 
-            _employeeRepository.CreateAsync(new DTO.UserProjectionModel(user.Id.Value, user.Roles.Select(p => p.Id).ToList(), (int)user.State, request.Representation), cancellationToken);
+            var user = User.Create(UserId.FromResourcePath(request.ResourcePath), representation.Groups.Select(p => UserRole.FromString(p)).ToList());
 
-            return Task.CompletedTask;
+            await _employeeRepository.CreateAsync(new DTO.UserProjectionModel(user.Id.Value, user.Roles.Select(p => p.Id).ToList(), (int)user.State, representation), cancellationToken);
+
+            var createUserEvents = user.DomainEvents
+                .OfType<CreateUser>()
+                .FirstOrDefault();
+
+            if (createUserEvents != null)
+                await _mediator.Send(new CreatedUserCommand(createUserEvents.Id, representation.FirstName, representation.LastName, representation.Email, representation.CreatedTimestamp));
         }
     }
 }

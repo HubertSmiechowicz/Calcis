@@ -55,7 +55,7 @@ namespace Calcis.Modules.Employee.Infrastructure.RabbitMq
                     if (keycloakEvent?.ResourceType == "USER")
                     {
                         // TODO::Add handling for user events: CREATE, UPDATE, DELETE
-                        var createUser = JsonConvert.DeserializeObject<CreateUserCommand>(message);
+                        var createUser = JsonConvert.DeserializeObject<CreateUserKeycloakCommand>(message);
                         if (createUser is not null)
                             await _mediator.Send(createUser);
                     }

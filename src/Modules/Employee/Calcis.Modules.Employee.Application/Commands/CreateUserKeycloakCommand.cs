@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Calcis.Modules.Employee.Application.Commands
 {
-    internal class CreateUserCommand : IRequest
+    internal class CreateUserKeycloakCommand : IRequest
     {
         [JsonProperty("operationType")]
         public string OperationType { get; set; }

@@ -34,6 +34,8 @@ namespace Calcis.Modules.Employee.Infrastructure
 
             service.AddTransient<IEmployeeReadRepository, EmployeeReadRepository>();
             service.AddTransient<IEmployeeReadModelWriter, EmployeeReadModelWriter>();
+
+            service.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfile>());
         }
 
         public void RegisterContexts(IServiceProvider serviceProvider)
