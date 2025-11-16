@@ -114,8 +114,10 @@ try
         return factory.CreateConnectionAsync();
     });
 
+    var modules = ModuleLoader.LoadModules();
+
     // Add modules to the container (³aduje kontrolery)
-    var mvcBuilder = ModuleLoader.RegisterModules(builder.Services);
+    var mvcBuilder = ModuleLoader.RegisterModules(builder.Services, modules, builder.Configuration);
     builder.Services.AddSharedInfrastructure();
 
     // Add Authentication with JWT Bearer
@@ -160,7 +162,7 @@ try
 
     var app = builder.Build();
 
-    ModuleLoader.RegisterContexts(app.Services);
+    ModuleLoader.RegisterContexts(app.Services, modules);
 
     // Add swagger UI in development enviroment
     if (app.Environment.IsDevelopment())

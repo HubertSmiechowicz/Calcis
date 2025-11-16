@@ -28,6 +28,40 @@ namespace Calcis.Modules.Employee.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<bool>("EmailVerified")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<int>("NotBefore")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("State")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Totp")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Username")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
                     b.HasKey("Id");
 
                     b.ToTable("user_entity", "employee");

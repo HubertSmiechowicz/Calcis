@@ -12,9 +12,6 @@ namespace Calcis.Modules.Employee.Application.Commands.Models
         [JsonPropertyName("id")]
         public string? Id { get; set; }
 
-        [JsonPropertyName("createdTimestamp")]
-        public long CreatedTimestamp { get; set; }
-
         [JsonPropertyName("username")]
         public string Username { get; set; }
 

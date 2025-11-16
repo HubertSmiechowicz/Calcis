@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Calcis.Modules.Employee.Application.DTO;
+using Calcis.Modules.Employee.Application.Commands.DTO;
 using Calcis.Modules.Employee.Application.Repositories;
 using Calcis.Modules.Employee.Infrastructure.Database;
 using Calcis.Modules.Employee.Infrastructure.Database.ReadDAO;

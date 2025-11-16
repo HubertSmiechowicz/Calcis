@@ -29,12 +29,12 @@ namespace Calcis.Modules.Employee.Core.ValueObjects
         {
             return name.ToLower() switch
             {
-                "admin" => Admin,
-                "manager" => Manager,
-                "hremployee" => HrEmployee,
-                "dispatcher" => Dispatcher,
-                "driver" => Driver,
-                "mechanic" => Mechanic,
+                "/admins" => Admin,
+                "/managers" => Manager,
+                "/hremployees" => HrEmployee,
+                "/dispatchers" => Dispatcher,
+                "/drivers" => Driver,
+                "/mechanics" => Mechanic,
                 _ => Invalid
             };
         }

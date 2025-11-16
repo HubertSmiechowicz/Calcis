@@ -1,5 +1,6 @@
 ﻿using Calcis.Shared.Abstractions.Modules;
 using Calcis.Shared.Infrastructure.Modules;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
 
@@ -8,16 +9,21 @@ namespace Calcis.Modules.Employee.Api
 {
     public class EmployeeModule : IModule
     {
-        public EmployeeModule() { }
+        private IList<ILayer> layers;
 
-        public void Register(IServiceCollection service, IMvcBuilder mvc)
+        public EmployeeModule() 
         {
-            LayerLoader.RegisterLayers(service, "Employee.");
+            layers = LayerLoader.LoadLayers("Employee.");
+        }
+
+        public void Register(IServiceCollection service, IMvcBuilder mvc, IConfiguration config)
+        {
+            LayerLoader.RegisterLayers(service, layers, config);
         }
 
         public void RegisterContexts(IServiceProvider serviceProvider)
         {
-            LayerLoader.RegisterContexts(serviceProvider, "Employee.");
+            LayerLoader.RegisterContexts(serviceProvider, layers);
         }
     }
 }

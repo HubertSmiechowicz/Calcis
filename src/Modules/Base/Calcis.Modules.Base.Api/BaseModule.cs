@@ -2,6 +2,7 @@
 using Calcis.Modules.Base.Core;
 using Calcis.Shared.Abstractions.Modules;
 using Calcis.Shared.Infrastructure.Modules;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,17 +16,22 @@ namespace Calcis.Modules.Base.Api
 {
     internal class BaseModule : IModule
     {
-        public BaseModule() { }
+        private IList<ILayer> layers;
 
-        public void Register(IServiceCollection service, IMvcBuilder mvc)
+        public BaseModule() 
+        {
+            layers = LayerLoader.LoadLayers("Base.");
+        }
+
+        public void Register(IServiceCollection service, IMvcBuilder mvc, IConfiguration config)
         {
             mvc.AddApplicationPart(typeof(BaseController).Assembly);
-            LayerLoader.RegisterLayers(service, "Base.");
+            LayerLoader.RegisterLayers(service, layers, config);
         }
 
         public void RegisterContexts(IServiceProvider serviceProvider)
         {
-            LayerLoader.RegisterContexts(serviceProvider, "Base.");
+            LayerLoader.RegisterContexts(serviceProvider, layers);
         }
     }
 }

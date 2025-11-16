@@ -1,4 +1,4 @@
-﻿using Calcis.Modules.Employee.Application.DTO;
+﻿using Calcis.Modules.Employee.Application.Commands.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

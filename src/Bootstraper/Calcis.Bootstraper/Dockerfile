@@ -2,7 +2,7 @@
 # BUILD STAGE
 # ===========================
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Debug
 WORKDIR /src
 
 # Kopiowanie plików csproj (dla cache)
@@ -16,17 +16,28 @@ COPY ["src/Modules/Base/Calcis.Modules.Base.Infrastructure/Calcis.Modules.Base.I
 
 RUN dotnet restore "src/Bootstraper/Calcis.Bootstraper/Calcis.Bootstraper.csproj"
 
-# Kopiowanie pozosta³ych plików
+# Kopiowanie reszty plików
 COPY . .
+
 WORKDIR "/src/src/Bootstraper/Calcis.Bootstraper"
-RUN dotnet build "Calcis.Bootstraper.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "Calcis.Bootstraper.csproj" \
+    -c $BUILD_CONFIGURATION \
+    -o /app/build \
+    /p:DebugType=portable \
+    /p:DebugSymbols=true
 
 # ===========================
 # PUBLISH STAGE
 # ===========================
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Calcis.Bootstraper.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+ARG BUILD_CONFIGURATION=Debug
+RUN dotnet publish "Calcis.Bootstraper.csproj" \
+    -c $BUILD_CONFIGURATION \
+    -o /app/publish \
+    /p:UseAppHost=false \
+    /p:DebugType=portable \
+    /p:DebugSymbols=true \
+    /p:PublishReadyToRun=false
 
 # ===========================
 # FINAL STAGE (RUNTIME)
@@ -38,7 +49,10 @@ EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Development
 
-COPY --from=publish /app/publish .
+# Kopiujemy aplikacjê i PDB
+COPY --from=publish /app/publish ./
+# Jeœli chcesz, mo¿esz te¿ trzymaæ PDB w osobnym folderze
+# COPY --from=publish /app/publish/*.pdb ./  
 
 HEALTHCHECK --interval=30s --timeout=10s CMD curl -f http://localhost:8080/health || exit 1
 

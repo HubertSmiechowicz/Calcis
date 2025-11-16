@@ -1,4 +1,5 @@
 ﻿using Calcis.Shared.Abstractions.Modules;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ namespace Calcis.Shared.Infrastructure.Modules
 
         }
 
-        private static IList<ILayer> LoadLayers(string layerPart)
+        public static IList<ILayer> LoadLayers(string layerPart)
         => LoadAssemblies(layerPart)
             .SelectMany(x => x.GetTypes())
             .Where(x => typeof(ILayer).IsAssignableFrom(x) && !x.IsInterface)
@@ -61,19 +62,16 @@ namespace Calcis.Shared.Infrastructure.Modules
             .ToList();
 
 
-        public static void RegisterLayers(IServiceCollection service, string layerPart)
+        public static void RegisterLayers(IServiceCollection service, IList<ILayer> layers, IConfiguration config)
         {
-            var layers = LoadLayers(layerPart);
-
             foreach (var layer in layers)
             {
-                layer.Register(service);
+                layer.Register(service, config);
             }
         }
 
-        public static void RegisterContexts(IServiceProvider serviceProvider, string layerPart)
+        public static void RegisterContexts(IServiceProvider serviceProvider, IList<ILayer> layers)
         {
-            var layers = LoadLayers(layerPart);
             foreach (var layer in layers)
             {
                 layer.RegisterContexts(serviceProvider);

@@ -9,7 +9,7 @@ namespace Calcis.Modules.Employee.Core.ValueObjects
 {
     internal class UserId
     {
-        private static readonly Regex _pattern = new(@"^user/(?<id>[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
+        private static readonly Regex _pattern = new(@"^users/(?<id>[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$",
                                                    RegexOptions.Compiled);
 
         public Guid Value { get; }

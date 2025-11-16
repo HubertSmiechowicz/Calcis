@@ -8,6 +8,9 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
     <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+	<DebugType>portable</DebugType>
+	<DebugSymbols>true</DebugSymbols>
+	<Optimize>false</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,6 +38,7 @@
     <ProjectReference Include="..\..\Modules\Base\Calcis.Modules.Base.Api\Calcis.Modules.Base.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Employee\Calcis.Modules.Employee.Api\Calcis.Modules.Employee.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Employee\Calcis.Modules.Employee.Infrastructure\Calcis.Modules.Employee.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Fleet\Calcis.Modules.Fleet.Infrastructure\Calcis.Modules.Fleet.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Shared\Calcis.Shared.Infrastructure\Calcis.Shared.Infrastructure.csproj" />
   </ItemGroup>
 

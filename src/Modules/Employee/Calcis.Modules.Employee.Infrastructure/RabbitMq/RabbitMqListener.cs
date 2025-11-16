@@ -2,6 +2,7 @@
 using Calcis.Modules.Employee.Application.Commands.Models;
 using Calcis.Shared.Infrastructure.Logging;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -18,13 +19,13 @@ namespace Calcis.Modules.Employee.Infrastructure.RabbitMq
     {
         private readonly Task<IConnection> _connectionTask;
         private Logger<RabbitMqListener> _logger;
-        private IMediator _mediator { get; }
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public RabbitMqListener(Task<IConnection> connectionTask, Logger<RabbitMqListener> logger, IMediator mediator)
+        public RabbitMqListener(Task<IConnection> connectionTask, Logger<RabbitMqListener> logger, IServiceScopeFactory serviceScopeFactory)
         {
             _connectionTask = connectionTask;
             _logger = logger;
-            _mediator = mediator;
+            _serviceScopeFactory = serviceScopeFactory;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -56,8 +57,12 @@ namespace Calcis.Modules.Employee.Infrastructure.RabbitMq
                     {
                         // TODO::Add handling for user events: CREATE, UPDATE, DELETE
                         var createUser = JsonConvert.DeserializeObject<CreateUserKeycloakCommand>(message);
-                        if (createUser is not null)
-                            await _mediator.Send(createUser);
+                        if (createUser is not null && createUser.OperationType == "CREATE")
+                        {
+                            using var scope = _serviceScopeFactory.CreateScope();
+                            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                            await mediator.Send(createUser);
+                        }
                     }
                     else if (keycloakEvent?.ResourceType == "GROUP_MEMBERSHIP")
                     {

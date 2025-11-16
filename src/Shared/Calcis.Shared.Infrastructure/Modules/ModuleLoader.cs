@@ -40,7 +40,7 @@ namespace Calcis.Shared.Infrastructure.Modules
             return assemblies;
         }
 
-        private static IList<IModule> LoadModules()
+        public static IList<IModule> LoadModules()
         {
             return LoadAssemblies()
                 .SelectMany(x => x.GetTypes())
@@ -54,25 +54,22 @@ namespace Calcis.Shared.Infrastructure.Modules
         /// <summary>
         /// Rejestruje wszystkie moduły aplikacji i ich kontrolery.
         /// </summary>
-        public static IMvcBuilder RegisterModules(IServiceCollection services)
+        public static IMvcBuilder RegisterModules(IServiceCollection services, IList<IModule> modules, IConfiguration config)
         {
             // Tworzymy wspólny builder MVC
             var mvcBuilder = services.AddControllers();
 
-            // Ładujemy wszystkie moduły
-            var modules = LoadModules();
             foreach (var module in modules)
             {
                 // Nowa wersja interfejsu — przekazujemy IMvcBuilder
-                module.Register(services, mvcBuilder);
+                module.Register(services, mvcBuilder, config);
             }
 
             return mvcBuilder;
         }
 
-        public static void RegisterContexts(IServiceProvider serviceProvider)
+        public static void RegisterContexts(IServiceProvider serviceProvider, IList<IModule> modules)
         {
-            var modules = LoadModules();
             foreach (var module in modules)
             {
                 module.RegisterContexts(serviceProvider);

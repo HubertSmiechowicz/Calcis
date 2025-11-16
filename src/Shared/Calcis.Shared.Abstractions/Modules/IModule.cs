@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Calcis.Shared.Abstractions.Modules
 {
     public interface IModule
     {
-        void Register(IServiceCollection services, IMvcBuilder mvc);
+        void Register(IServiceCollection services, IMvcBuilder mvc, IConfiguration config);
         void RegisterContexts(IServiceProvider serviceProvider);
     }
 }

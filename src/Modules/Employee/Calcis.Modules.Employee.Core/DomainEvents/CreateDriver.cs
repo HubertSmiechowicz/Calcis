@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Calcis.Modules.Employee.Core.DomainEvents
 {
-    internal class CreateUser : IDomainEvent
+    internal class CreateDriver : IDomainEvent
     {
         public Guid Id { get; set; }
     }

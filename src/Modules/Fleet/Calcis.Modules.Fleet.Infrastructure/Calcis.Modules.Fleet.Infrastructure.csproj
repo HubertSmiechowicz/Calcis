@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<DebugType>portable</DebugType>
+	<DebugSymbols>true</DebugSymbols>
+	<Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Abstractions\Calcis.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Infrastructure\Calcis.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\Calcis.Modules.Fleet.Application\Calcis.Modules.Fleet.Application.csproj" />
+  </ItemGroup>
+
+</Project>

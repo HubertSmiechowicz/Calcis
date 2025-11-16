@@ -15,15 +15,13 @@ using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("Calcis.Modules.Employee.Api")]
 [assembly: InternalsVisibleTo("Calcis.Bootstraper")]
+[assembly: InternalsVisibleTo("MediatR")]
 namespace Calcis.Modules.Employee.Infrastructure
 {
     public class EmployeeInfrastructureLayer : ILayer
     {
-        public void Register(IServiceCollection service)
+        public void Register(IServiceCollection service, IConfiguration config)
         {
-            var serviceProvider = service.BuildServiceProvider();
-            var config = serviceProvider.GetRequiredService<IConfiguration>();
-
             service.AddDbContext<EmployeeWriteDbContext>(options =>
                 options.UseNpgsql(config.GetConnectionString("PostgresWrite")));
 
@@ -40,25 +38,28 @@ namespace Calcis.Modules.Employee.Infrastructure
 
         public void RegisterContexts(IServiceProvider serviceProvider)
         {
-            using var scope = serviceProvider.CreateScope();
-
-            var employeeRead = scope.ServiceProvider.GetRequiredService<EmployeeReadDbContext>();
-            var employeeWrite = scope.ServiceProvider.GetRequiredService<EmployeeWriteDbContext>();
-
-            for (int i = 0; i < 10; i++)
+            Task.Run(async () =>
             {
-                try
+                using var scope = serviceProvider.CreateScope();
+
+                var employeeRead = scope.ServiceProvider.GetRequiredService<EmployeeReadDbContext>();
+                var employeeWrite = scope.ServiceProvider.GetRequiredService<EmployeeWriteDbContext>();
+
+                for (int i = 0; i < 10; i++)
                 {
-                    employeeRead.Database.Migrate();
-                    employeeWrite.Database.Migrate();
-                    break;
+                    try
+                    {
+                        await employeeRead.Database.MigrateAsync();
+                        await employeeWrite.Database.MigrateAsync();
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Migracja nie powiodła się, próbuję ponownie... {ex.Message}");
+                        Thread.Sleep(2000);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Migracja nie powiodła się, próbuję ponownie... {ex.Message}");
-                    Thread.Sleep(2000);
-                }
-            }
+            }).GetAwaiter().GetResult();
         }
     }
 }

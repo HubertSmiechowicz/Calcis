@@ -1,6 +1,7 @@
 ﻿using Calcis.Modules.Base.Core.Repositories;
 using Calcis.Modules.Base.Infrastructure.Repositories;
 using Calcis.Shared.Abstractions.Modules;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
 
@@ -10,7 +11,7 @@ namespace Calcis.Modules.Base.Infrastructure
 {
     public class BaseInfrastructureLayer : ILayer
     {
-        public void Register(IServiceCollection service)
+        public void Register(IServiceCollection service, IConfiguration config)
         {
             service
                 .AddSingleton<BaseReadDbContext>()

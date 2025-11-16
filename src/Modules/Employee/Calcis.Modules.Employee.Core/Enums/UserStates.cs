@@ -11,6 +11,6 @@ namespace Calcis.Modules.Employee.Core.Enums
         AwaitingPasswordSetup,
         Active,
         Inactive,
-        RoleError,
+        RoleError = 100,
     }
 }

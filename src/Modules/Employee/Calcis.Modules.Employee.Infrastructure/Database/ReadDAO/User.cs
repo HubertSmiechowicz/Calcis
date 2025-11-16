@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Calcis.Shared.Infrastructure.Database;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +14,6 @@ namespace Calcis.Modules.Employee.Infrastructure.Database.ReadDAO
     {
         [Key]
         internal Guid Id { get; set; }
-        internal long CreatedTimestamp { get; set; }
         [MaxLength(255)]
         internal string Username { get; set; }
         internal bool Enabled { get; set; }
@@ -27,6 +27,7 @@ namespace Calcis.Modules.Employee.Infrastructure.Database.ReadDAO
         internal string Email { get; set; }
         internal int State { get; set; }
         internal int NotBefore { get; set; }
+        internal DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         internal virtual ICollection<UserRole> Roles { get; set; }
     }

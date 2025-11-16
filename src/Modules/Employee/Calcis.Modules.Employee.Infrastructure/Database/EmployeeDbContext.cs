@@ -30,9 +30,64 @@ namespace Calcis.Modules.Employee.Infrastructure.Database
         {
             base.OnModelCreating(modelBuilder);
 
+            // Tabela
+            modelBuilder.Entity<User>()
+                .ToTable("user_entity", "employee");
+
+            // Klucz główny
             modelBuilder.Entity<User>()
                 .HasKey(u => u.Id);
 
+            // Pola
+            modelBuilder.Entity<User>()
+                .Property(u => u.Id)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.CreatedAt)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Username)
+                .HasMaxLength(255)
+                .IsRequired(false);
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Enabled)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Totp)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.EmailVerified)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.FirstName)
+                .HasMaxLength(255)
+                .IsRequired(false);
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.LastName)
+                .HasMaxLength(255)
+                .IsRequired(false);
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Email)
+                .HasMaxLength(255)
+                .IsRequired(false);
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.State)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.NotBefore)
+                .IsRequired();
+
+            // Relacja (User → UserRole)
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Roles)
                 .WithOne(r => r.User)

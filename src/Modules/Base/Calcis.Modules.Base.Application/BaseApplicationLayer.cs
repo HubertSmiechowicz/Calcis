@@ -1,5 +1,6 @@
 ﻿using Calcis.Modules.Base.Application.Queries.Handlers;
 using Calcis.Shared.Abstractions.Modules;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Calcis.Modules.Base.Application
 {
     internal class BaseApplicationLayer : ILayer
     {
-        public void Register(IServiceCollection service)
+        public void Register(IServiceCollection service, IConfiguration config)
         {
             service.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
                     Assembly.GetExecutingAssembly(),

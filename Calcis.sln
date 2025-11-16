@@ -39,6 +39,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Modules.Employee.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Shared.Events", "src\Shared\Calcis.Shared.Events\Calcis.Shared.Events.csproj", "{E5CEE892-794A-44E0-B903-B1783E7AF6DA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fleet", "Fleet", "{A17BC85F-F4F2-4957-9318-AB490EDAAD59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Modules.Fleet.Api", "src\Modules\Fleet\Calcis.Modules.Fleet.Api\Calcis.Modules.Fleet.Api.csproj", "{86F6EECA-C891-4AD7-A524-B62DF2D01DD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Modules.Fleet.Application", "src\Modules\Fleet\Calcis.Modules.Fleet.Application\Calcis.Modules.Fleet.Application.csproj", "{CBC79808-2C21-4C7F-A289-8BF9E706423C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calcis.Modules.Fleet.Infrastructure", "src\Modules\Fleet\Calcis.Modules.Fleet.Infrastructure\Calcis.Modules.Fleet.Infrastructure.csproj", "{AA3CBCCD-22FF-4F65-AEB6-41EF0E91C7B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +105,18 @@ Global
 		{E5CEE892-794A-44E0-B903-B1783E7AF6DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5CEE892-794A-44E0-B903-B1783E7AF6DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5CEE892-794A-44E0-B903-B1783E7AF6DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F6EECA-C891-4AD7-A524-B62DF2D01DD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F6EECA-C891-4AD7-A524-B62DF2D01DD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F6EECA-C891-4AD7-A524-B62DF2D01DD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F6EECA-C891-4AD7-A524-B62DF2D01DD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBC79808-2C21-4C7F-A289-8BF9E706423C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC79808-2C21-4C7F-A289-8BF9E706423C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC79808-2C21-4C7F-A289-8BF9E706423C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC79808-2C21-4C7F-A289-8BF9E706423C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA3CBCCD-22FF-4F65-AEB6-41EF0E91C7B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA3CBCCD-22FF-4F65-AEB6-41EF0E91C7B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA3CBCCD-22FF-4F65-AEB6-41EF0E91C7B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA3CBCCD-22FF-4F65-AEB6-41EF0E91C7B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +136,10 @@ Global
 		{AB450A89-BDCD-4429-A755-311EAF43F37B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{6E6DBFA3-BFB3-4332-840F-2BDAF1DA0F4F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{E5CEE892-794A-44E0-B903-B1783E7AF6DA} = {11AF223C-1C79-4242-B5DC-F44DE44531FD}
+		{A17BC85F-F4F2-4957-9318-AB490EDAAD59} = {C7476297-878A-4FFB-BBF0-79CDBE8F7331}
+		{86F6EECA-C891-4AD7-A524-B62DF2D01DD5} = {A17BC85F-F4F2-4957-9318-AB490EDAAD59}
+		{CBC79808-2C21-4C7F-A289-8BF9E706423C} = {A17BC85F-F4F2-4957-9318-AB490EDAAD59}
+		{AA3CBCCD-22FF-4F65-AEB6-41EF0E91C7B0} = {A17BC85F-F4F2-4957-9318-AB490EDAAD59}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7247945B-281D-4FCE-8A2E-7BED08698F51}
