@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Abstractions\Calcis.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Database\Calcis.Shared.Database.csproj" />
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Infrastructure\Calcis.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Calcis.Modules.Fleet.Application\Calcis.Modules.Fleet.Application.csproj" />
   </ItemGroup>

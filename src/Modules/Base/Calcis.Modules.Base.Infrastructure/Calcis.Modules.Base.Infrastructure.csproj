@@ -8,11 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
-    <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Abstractions\Calcis.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Database\Calcis.Shared.Database.csproj" />
     <ProjectReference Include="..\..\..\Shared\Calcis.Shared.Infrastructure\Calcis.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\Calcis.Modules.Base.Core\Calcis.Modules.Base.Core.csproj" />
   </ItemGroup>

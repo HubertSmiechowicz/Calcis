@@ -12,15 +12,12 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="15.1.0" />
     <PackageReference Include="MediatR" Version="12.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="RabbitMQ.Client" Version="7.2.0" />
   </ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\Shared\Calcis.Shared.Database\Calcis.Shared.Database.csproj" />
 		<ProjectReference Include="..\..\..\Shared\Calcis.Shared.Infrastructure\Calcis.Shared.Infrastructure.csproj" />
 		<ProjectReference Include="..\Calcis.Modules.Employee.Application\Calcis.Modules.Employee.Application.csproj" />
 	</ItemGroup>

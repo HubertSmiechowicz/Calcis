@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calcis.Shared.Infrastructure.Database
+namespace Calcis.Shared.Database
 {
     public class Entity
     {

@@ -1,4 +1,4 @@
-﻿using Calcis.Shared.Infrastructure.Database;
+﻿using Calcis.Shared.Database;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

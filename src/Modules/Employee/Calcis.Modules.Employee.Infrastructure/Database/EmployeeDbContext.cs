@@ -1,5 +1,5 @@
 ﻿using Calcis.Modules.Employee.Infrastructure.Database.ReadDAO;
-using Calcis.Shared.Infrastructure.Database;
+using Calcis.Shared.Database;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

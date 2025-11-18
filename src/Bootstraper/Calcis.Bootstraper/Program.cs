@@ -1,7 +1,7 @@
 using Calcis.Modules.Base.Application.Queries.Handlers;
 using Calcis.Modules.Employee.Infrastructure.Database;
 using Calcis.Shared.Infrastructure;
-using Calcis.Shared.Infrastructure.Database;
+using Calcis.Shared.Database;
 using Calcis.Shared.Infrastructure.Modules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

@@ -1,5 +1,5 @@
 ﻿using Calcis.Modules.Base.Infrastructure.DAO;
-using Calcis.Shared.Infrastructure.Database;
+using Calcis.Shared.Database;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Calcis.Shared.Infrastructure.Database;
+using Calcis.Shared.Database;
 
 namespace Calcis.Modules.Fleet.Infrastructure.Database.WriteDAO
 {
