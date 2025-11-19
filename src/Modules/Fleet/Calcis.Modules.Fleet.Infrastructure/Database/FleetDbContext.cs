@@ -56,7 +56,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<WriteDAO.Driver>()
                 .Property(d => d.DrivingLicenseExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<WriteDAO.Driver>()
                 .Property(d => d.Is95Code)
@@ -72,7 +72,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<WriteDAO.Driver>()
                 .Property(d => d.MedicalCertificateExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<WriteDAO.Driver>()
                 .Property(d => d.IsPsychologicalExamValid)
@@ -80,7 +80,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<WriteDAO.Driver>()
                 .Property(d => d.PsychologicalExamExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<WriteDAO.Driver>()
                 .Property(d => d.IdentityCardNumber)
@@ -88,7 +88,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<WriteDAO.Driver>()
                 .Property(d => d.IdentityCardExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<WriteDAO.Driver>()
                 .Property(d => d.PassportNumber)
@@ -96,7 +96,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<WriteDAO.Driver>()
                 .Property(d => d.PassportExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<WriteDAO.Driver>()
                 .Property(d => d.CertificateNoCriminalRecordNumber)
@@ -108,8 +108,12 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<WriteDAO.Driver>()
                 .Property(d => d.AdrExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
+            modelBuilder.Entity<WriteDAO.Driver>()
+                .Property(d => d.State)
+                .IsRequired(true)
+                .HasDefaultValue(0);
         }
     }
 
@@ -159,7 +163,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<ReadDAO.Driver>()
                 .Property(d => d.DrivingLicenseExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<ReadDAO.Driver>()
                 .Property(d => d.Is95Code)
@@ -175,7 +179,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<ReadDAO.Driver>()
                 .Property(d => d.MedicalCertificateExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<ReadDAO.Driver>()
                 .Property(d => d.IsPsychologicalExamValid)
@@ -183,7 +187,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<ReadDAO.Driver>()
                 .Property(d => d.PsychologicalExamExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<ReadDAO.Driver>()
                 .Property(d => d.IdentityCardNumber)
@@ -191,7 +195,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<ReadDAO.Driver>()
                 .Property(d => d.IdentityCardExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<ReadDAO.Driver>()
                 .Property(d => d.PassportNumber)
@@ -199,7 +203,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<ReadDAO.Driver>()
                 .Property(d => d.PassportExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
             modelBuilder.Entity<ReadDAO.Driver>()
                 .Property(d => d.CertificateNoCriminalRecordNumber)
@@ -211,8 +215,12 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database
 
             modelBuilder.Entity<ReadDAO.Driver>()
                 .Property(d => d.AdrExpiryDate)
-                .IsRequired();
+                .IsRequired(false);
 
+            modelBuilder.Entity<ReadDAO.Driver>()
+                .Property(d => d.State)
+                .IsRequired(true)
+                .HasDefaultValue(0);
         }
     }
 }

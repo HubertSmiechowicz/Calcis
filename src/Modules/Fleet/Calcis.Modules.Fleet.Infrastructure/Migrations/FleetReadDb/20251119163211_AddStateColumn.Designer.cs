@@ -3,17 +3,20 @@ using System;
 using Calcis.Modules.Fleet.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Calcis.Modules.Fleet.Infrastructure.Migrations
+namespace Calcis.Modules.Fleet.Infrastructure.Migrations.FleetReadDb
 {
-    [DbContext(typeof(FleetWriteDbContext))]
-    partial class FleetWriteDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(FleetReadDbContext))]
+    [Migration("20251119163211_AddStateColumn")]
+    partial class AddStateColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,13 +25,13 @@ namespace Calcis.Modules.Fleet.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Calcis.Modules.Fleet.Infrastructure.Database.WriteDAO.Driver", b =>
+            modelBuilder.Entity("Calcis.Modules.Fleet.Infrastructure.Database.ReadDAO.Driver", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("AdrExpiryDate")
+                    b.Property<DateTime>("AdrExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("AdrNumber")
@@ -43,13 +46,13 @@ namespace Calcis.Modules.Fleet.Infrastructure.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("DeletedAt")
+                    b.Property<DateTime>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("DeletedBy")
+                    b.Property<Guid>("DeletedBy")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("DrivingLicenseExpiryDate")
+                    b.Property<DateTime>("DrivingLicenseExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DrivingLicenseNumber")
@@ -63,7 +66,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<DateTime?>("IdentityCardExpiryDate")
+                    b.Property<DateTime>("IdentityCardExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("IdentityCardNumber")
@@ -82,22 +85,22 @@ namespace Calcis.Modules.Fleet.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<DateTime?>("MedicalCertificateExpiryDate")
+                    b.Property<DateTime>("MedicalCertificateExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime?>("ModifiedAt")
+                    b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("ModifiedBy")
+                    b.Property<Guid>("ModifiedBy")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("PassportExpiryDate")
+                    b.Property<DateTime>("PassportExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("PassportNumber")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("PsychologicalExamExpiryDate")
+                    b.Property<DateTime>("PsychologicalExamExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("State")

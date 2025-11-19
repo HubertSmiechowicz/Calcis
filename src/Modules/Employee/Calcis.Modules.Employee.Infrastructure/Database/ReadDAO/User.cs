@@ -28,6 +28,7 @@ namespace Calcis.Modules.Employee.Infrastructure.Database.ReadDAO
         internal int State { get; set; }
         internal int NotBefore { get; set; }
         internal DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        internal bool IsPasswordSet { get; set; } = false;
 
         internal virtual ICollection<UserRole> Roles { get; set; }
     }

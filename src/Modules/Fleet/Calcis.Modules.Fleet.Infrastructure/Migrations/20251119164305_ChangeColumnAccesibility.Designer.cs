@@ -3,6 +3,7 @@ using System;
 using Calcis.Modules.Fleet.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Calcis.Modules.Fleet.Infrastructure.Migrations
 {
     [DbContext(typeof(FleetWriteDbContext))]
-    partial class FleetWriteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251119164305_ChangeColumnAccesibility")]
+    partial class ChangeColumnAccesibility
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

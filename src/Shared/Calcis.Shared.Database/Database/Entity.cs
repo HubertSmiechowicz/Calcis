@@ -15,14 +15,14 @@ namespace Calcis.Shared.Database
         [Required]
         public Guid CreatedBy { get; set; } = Guid.Empty;
 
-        public Guid ModifiedBy { get; set; }
+        public Guid? ModifiedBy { get; set; } = null;
 
-        public Guid DeletedBy { get; set; }
+        public Guid? DeletedBy { get; set; } = null;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public DateTime ModifiedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; } = null;
 
-        public DateTime DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; } = null;
     }
 }

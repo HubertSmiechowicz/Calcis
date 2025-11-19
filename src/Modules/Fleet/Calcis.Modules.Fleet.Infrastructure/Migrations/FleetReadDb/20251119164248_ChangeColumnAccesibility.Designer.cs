@@ -3,17 +3,20 @@ using System;
 using Calcis.Modules.Fleet.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Calcis.Modules.Fleet.Infrastructure.Migrations
+namespace Calcis.Modules.Fleet.Infrastructure.Migrations.FleetReadDb
 {
-    [DbContext(typeof(FleetWriteDbContext))]
-    partial class FleetWriteDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(FleetReadDbContext))]
+    [Migration("20251119164248_ChangeColumnAccesibility")]
+    partial class ChangeColumnAccesibility
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Calcis.Modules.Fleet.Infrastructure.Database.WriteDAO.Driver", b =>
+            modelBuilder.Entity("Calcis.Modules.Fleet.Infrastructure.Database.ReadDAO.Driver", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

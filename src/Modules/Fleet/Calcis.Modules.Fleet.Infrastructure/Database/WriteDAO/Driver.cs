@@ -24,9 +24,11 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database.WriteDAO
         [MaxLength(255)]
         internal string Email { get; set; }
 
+        internal int State { get; set; }
+
         internal string DrivingLicenseNumber { get; set; }
 
-        internal DateTime DrivingLicenseExpiryDate { get; set; }
+        internal DateTime? DrivingLicenseExpiryDate { get; set; }
 
         internal bool Is95Code { get; set; }
 
@@ -34,24 +36,24 @@ namespace Calcis.Modules.Fleet.Infrastructure.Database.WriteDAO
 
         internal bool IsMedicalCertificateValid { get; set; }
 
-        internal DateTime MedicalCertificateExpiryDate { get; set; }
+        internal DateTime? MedicalCertificateExpiryDate { get; set; }
 
         internal bool IsPsychologicalExamValid { get; set; }
 
-        internal DateTime PsychologicalExamExpiryDate { get; set; }
+        internal DateTime? PsychologicalExamExpiryDate { get; set; }
 
         internal string IdentityCardNumber { get; set; }
 
-        internal DateTime IdentityCardExpiryDate { get; set; }
+        internal DateTime? IdentityCardExpiryDate { get; set; }
 
         internal string PassportNumber { get; set; }
 
-        internal DateTime PassportExpiryDate { get; set; }
+        internal DateTime? PassportExpiryDate { get; set; }
 
         internal string CertificateNoCriminalRecordNumber { get; set; }
 
         internal string AdrNumber { get; set; }
 
-        internal DateTime AdrExpiryDate { get; set; }
+        internal DateTime? AdrExpiryDate { get; set; }
     }
 }

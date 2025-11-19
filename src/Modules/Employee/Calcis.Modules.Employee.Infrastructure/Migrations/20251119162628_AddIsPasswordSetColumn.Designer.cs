@@ -3,6 +3,7 @@ using System;
 using Calcis.Modules.Employee.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Calcis.Modules.Employee.Infrastructure.Migrations
 {
     [DbContext(typeof(EmployeeReadDbContext))]
-    partial class EmployeeReadDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251119162628_AddIsPasswordSetColumn")]
+    partial class AddIsPasswordSetColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

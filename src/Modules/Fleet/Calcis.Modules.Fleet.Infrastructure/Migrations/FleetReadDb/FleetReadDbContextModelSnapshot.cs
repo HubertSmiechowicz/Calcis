@@ -28,7 +28,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Migrations.FleetReadDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("AdrExpiryDate")
+                    b.Property<DateTime?>("AdrExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("AdrNumber")
@@ -43,13 +43,13 @@ namespace Calcis.Modules.Fleet.Infrastructure.Migrations.FleetReadDb
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("DeletedAt")
+                    b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("DeletedBy")
+                    b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("DrivingLicenseExpiryDate")
+                    b.Property<DateTime?>("DrivingLicenseExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DrivingLicenseNumber")
@@ -63,7 +63,7 @@ namespace Calcis.Modules.Fleet.Infrastructure.Migrations.FleetReadDb
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<DateTime>("IdentityCardExpiryDate")
+                    b.Property<DateTime?>("IdentityCardExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("IdentityCardNumber")
@@ -82,23 +82,28 @@ namespace Calcis.Modules.Fleet.Infrastructure.Migrations.FleetReadDb
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<DateTime>("MedicalCertificateExpiryDate")
+                    b.Property<DateTime?>("MedicalCertificateExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("ModifiedAt")
+                    b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("ModifiedBy")
+                    b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("PassportExpiryDate")
+                    b.Property<DateTime?>("PassportExpiryDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("PassportNumber")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("PsychologicalExamExpiryDate")
+                    b.Property<DateTime?>("PsychologicalExamExpiryDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("State")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("TachographCardNumber")
                         .HasColumnType("text");

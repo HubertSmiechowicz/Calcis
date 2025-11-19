@@ -87,6 +87,11 @@ namespace Calcis.Modules.Employee.Infrastructure.Database
                 .Property(u => u.NotBefore)
                 .IsRequired();
 
+            modelBuilder.Entity<User>()
+                .Property(u => u.IsPasswordSet)
+                .IsRequired()
+                .HasDefaultValue(false);
+
             // Relacja (User → UserRole)
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Roles)

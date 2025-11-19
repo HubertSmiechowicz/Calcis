@@ -1,30 +1,29 @@
-﻿using Calcis.Modules.Fleet.Application.Repositories;
-using Calcis.Modules.Fleet.Infrastructure.Database;
-using Calcis.Modules.Fleet.Infrastructure.Repositories;
+﻿using Calcis.Modules.Maintenance.Application.Repositories;
+using Calcis.Modules.Maintenance.Infrastructure.Database;
+using Calcis.Modules.Maintenance.Infrastructure.Repositories;
 using Calcis.Shared.Abstractions.Modules;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
-using System.Xml.Serialization;
 
-[assembly: InternalsVisibleTo("Calcis.Modules.Fleet.Api")]
+[assembly: InternalsVisibleTo("Calcis.Modules.Maintenance.Api")]
 [assembly: InternalsVisibleTo("Calcis.Bootstraper")]
 [assembly: InternalsVisibleTo("MediatR")]
-namespace Calcis.Modules.Fleet.Infrastructure
+namespace Calcis.Modules.Maintenance.Infrastructure
 {
-    public class FleetInfrastructureLayer : ILayer
+    public class MaintenanceInfrastructureLayer : ILayer
     {
-        public void Register(IServiceCollection service, IConfiguration config)
+        public void Register(Microsoft.Extensions.DependencyInjection.IServiceCollection service, Microsoft.Extensions.Configuration.IConfiguration config)
         {
-            service.AddDbContext<FleetWriteDbContext>(options =>
+            service.AddDbContext<MaintenanceWriteDbContext>(options =>
                 options.UseNpgsql(config.GetConnectionString("PostgresWrite")));
 
-            service.AddDbContext<FleetReadDbContext>(options =>
+            service.AddDbContext<MaintenanceReadDbContext>(options =>
                 options.UseNpgsql(config.GetConnectionString("PostgresRead")));
 
-            service.AddTransient<IFleetWriteRepository, FleetWriteRepository>();
-            service.AddTransient<IFleetReadModelWriter, FleetReadModelWriter>();
+            service.AddTransient<IMaintenanceWriteRepository, MaintenanceWriteRepository>();
+            service.AddTransient<IMaintenanceReadModelWriter, MaintenanceReadModelWriter>();
 
             service.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperProfile>());
         }
@@ -35,15 +34,15 @@ namespace Calcis.Modules.Fleet.Infrastructure
             {
                 using var scope = serviceProvider.CreateScope();
 
-                var fleetRead = scope.ServiceProvider.GetRequiredService<FleetReadDbContext>();
-                var fleetWrite = scope.ServiceProvider.GetRequiredService<FleetWriteDbContext>();
+                var maintenanceRead = scope.ServiceProvider.GetRequiredService<MaintenanceReadDbContext>();
+                var maintenanceWrite = scope.ServiceProvider.GetRequiredService<MaintenanceWriteDbContext>();
 
                 for (int i = 0; i < 10; i++)
                 {
                     try
                     {
-                        await fleetRead.Database.MigrateAsync();
-                        await fleetWrite.Database.MigrateAsync();
+                        await maintenanceRead.Database.MigrateAsync();
+                        await maintenanceWrite.Database.MigrateAsync();
                         break;
                     }
                     catch (Exception ex)
