@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Calcis.Modules.Employee.Application.Commands.DTO;
+using Calcis.Modules.Employee.Core.ValueObjects;
 using Calcis.Modules.Employee.Infrastructure.Database.ReadDAO;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,11 @@ namespace Calcis.Modules.Employee.Infrastructure
                 .ForMember(dest => dest.Roles, opt => opt.Ignore())
                 // Nie walidujemy źródłowej właściwości Roles
                 .ForSourceMember(src => src.Roles, opt => opt.DoNotValidate());
+
+            CreateMap<User, Core.User>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.Roles.Select(r => Core.ValueObjects.UserRole.FromInt(r.GroupId)).ToList()))
+                .ForMember(dest => dest.State, opt => opt.MapFrom(src => (Core.Enums.UserStates)src.State));
         }
     }
 }

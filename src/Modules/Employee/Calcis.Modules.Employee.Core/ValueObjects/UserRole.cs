@@ -39,6 +39,20 @@ namespace Calcis.Modules.Employee.Core.ValueObjects
             };
         }
 
+        public static UserRole FromInt(int id)
+        {
+            return id switch
+            {
+                1 => Admin,
+                2 => Manager,
+                3 => HrEmployee,
+                4 => Dispatcher,
+                5 => Driver,
+                6 => Mechanic,
+                _ => Invalid
+            };
+        }
+
         public override bool Equals(object? obj) => obj is UserRole other && other.Name == Name;
         public override int GetHashCode() => Name.GetHashCode();
     }

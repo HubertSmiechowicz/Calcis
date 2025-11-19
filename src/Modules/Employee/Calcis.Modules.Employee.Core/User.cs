@@ -5,6 +5,7 @@ using Calcis.Shared.Infrastructure.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,6 +37,14 @@ namespace Calcis.Modules.Employee.Core
             return user;
         }
 
+        internal void SetUserStateAfterSettingPassword()
+        {
+            if (State == UserStates.RoleError)
+                State = UserStates.RoleError;
+            else if (State == UserStates.AwaitingPasswordSetup)
+                State = UserStates.Active;
+        }
+
         private static UserStates DetermineInitialState(List<UserRole> roles)
         {
             if (HasInvalidRoleCombination(roles))
@@ -56,7 +65,8 @@ namespace Calcis.Modules.Employee.Core
 
         private static bool HasInvalidRoleCombination(List<UserRole> roles)
         {
-            return roles.Contains(UserRole.Invalid) || (roles.Contains(UserRole.Driver) && roles.Contains(UserRole.Mechanic));
+            return roles.Contains(UserRole.Invalid) || 
+                ((roles.Contains(UserRole.Driver) || roles.Contains(UserRole.Mechanic)) && roles.Count > 1);
         }
     }
 }

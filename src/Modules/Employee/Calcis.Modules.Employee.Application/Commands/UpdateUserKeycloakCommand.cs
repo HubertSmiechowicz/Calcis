@@ -1,7 +1,5 @@
 ﻿using Calcis.Modules.Employee.Application.Commands.Models;
 using MediatR;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +8,5 @@ using System.Threading.Tasks;
 
 namespace Calcis.Modules.Employee.Application.Commands
 {
-    internal record CreateUserKeycloakCommand(string resourcePath, Representation representation) : IRequest;
+    internal record UpdateUserKeycloakCommand(Representation representation) : IRequest;
 }

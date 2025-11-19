@@ -53,15 +53,32 @@ namespace Calcis.Modules.Employee.Infrastructure.RabbitMq
 
                     var keycloakEvent = JsonConvert.DeserializeObject<KeycloakEvent>(message);
 
+                    using var scope = _serviceScopeFactory.CreateScope();
+                    var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+
                     if (keycloakEvent?.ResourceType == "USER")
                     {
-                        // TODO::Add handling for user events: CREATE, UPDATE, DELETE
-                        var createUser = JsonConvert.DeserializeObject<CreateUserKeycloakCommand>(message);
-                        if (createUser is not null && createUser.OperationType == "CREATE")
+                        // TODO::Add handling for user events: DELETE
+                        var response = JsonConvert.DeserializeObject<KeycloakResponseModel>(message);
+                        if (response is not null && response.OperationType == "CREATE")
                         {
-                            using var scope = _serviceScopeFactory.CreateScope();
-                            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                            await mediator.Send(createUser);
+                            await mediator.Send(new CreateUserKeycloakCommand(response.ResourcePath, response.Representation));
+                        }
+                        else if (response is not null && response.OperationType == "UPDATE")
+                        {
+                            await mediator.Send(new UpdateUserKeycloakCommand(response.Representation));
+                        }
+                        else if (response is not null && response.OperationType == "ACTION")
+                        {
+                            // Its important to follow Keycloak for change ResourcePath format
+                            // Correct format now is users/{user_id}/reset-password
+                            var pathParts = response.ResourcePath.Split('/');
+
+                            var id = Guid.Empty;
+                            var success = Guid.TryParse(pathParts[1], out id);
+                            var action = pathParts[2];
+                            if (action == "reset-password" && success)
+                                await mediator.Send(new SetUserPasswordKeycloakCommand(id));
                         }
                     }
                     else if (keycloakEvent?.ResourceType == "GROUP_MEMBERSHIP")

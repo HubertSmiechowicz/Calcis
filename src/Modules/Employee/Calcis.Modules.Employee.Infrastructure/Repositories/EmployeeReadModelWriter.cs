@@ -3,6 +3,7 @@ using Calcis.Modules.Employee.Application.Commands.DTO;
 using Calcis.Modules.Employee.Application.Repositories;
 using Calcis.Modules.Employee.Infrastructure.Database;
 using Calcis.Modules.Employee.Infrastructure.Database.ReadDAO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Calcis.Modules.Employee.Infrastructure.Repositories
             _mapper = mapper;
         }
 
-        public async Task CreateAsync(UserProjectionModel model, CancellationToken cancellationToken)
+        public async Task CreateUserAsync(UserProjectionModel model, CancellationToken cancellationToken)
         {
             var user = _mapper.Map<User>(model);
 
@@ -38,6 +39,34 @@ namespace Calcis.Modules.Employee.Infrastructure.Repositories
 
                 _dbContext.UserRoles.Add(roleEntity);
             }
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task SetUserStateAfterSettingPassword(Core.User user, CancellationToken cancellationToken)
+        {
+            var entity = await _dbContext.Users.SingleOrDefaultAsync(u => u.Id == user.Id.Value, cancellationToken);
+
+            if (entity == null)
+            {
+                throw new InvalidOperationException($"User with ID {user.Id.Value} not found in read model.");
+            }
+
+            entity.State = (int)user.State;
+            entity.IsPasswordSet = true;
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task UpdateUserAsync(UserProjectionModel model, CancellationToken cancellationToken)
+        {
+            var entity = await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.Id == model.Id, cancellationToken);
+
+            if (entity == null)
+                throw new KeyNotFoundException($"User with id {model.Id} not found.");
+
+            _mapper.Map(model, entity);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
         }

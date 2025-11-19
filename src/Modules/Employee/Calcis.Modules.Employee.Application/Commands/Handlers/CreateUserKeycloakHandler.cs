@@ -27,14 +27,14 @@ namespace Calcis.Modules.Employee.Application.Commands.Handlers
 
         public async Task Handle(CreateUserKeycloakCommand request, CancellationToken cancellationToken)
         {
-            var representation = request.Representation;
+            var representation = request.representation;
 
             if (representation == null)
                 throw new ArgumentNullException(nameof(representation), "Representation cannot be null");
 
-            var user = User.Create(UserId.FromResourcePath(request.ResourcePath), representation.Groups.Select(p => UserRole.FromString(p)).ToList());
+            var user = User.Create(UserId.FromResourcePath(request.resourcePath), representation.Groups.Select(p => UserRole.FromString(p)).ToList());
 
-            await _employeeRepository.CreateAsync(new DTO.UserProjectionModel(user.Id.Value, user.Roles.Select(p => p.Id).ToList(), (int)user.State, representation), cancellationToken);
+            await _employeeRepository.CreateUserAsync(new DTO.UserProjectionModel(user.Id.Value, user.Roles.Select(p => p.Id).ToList(), (int)user.State, representation), cancellationToken);
 
             await SendEvents(user, representation);
         }
